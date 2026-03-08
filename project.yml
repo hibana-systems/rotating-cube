@@ -1,0 +1,131 @@
+name: RotatingCube
+options:
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_VERSION: "6.0"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGNING_ALLOWED: NO
+    CODE_SIGN_IDENTITY: ""
+targets:
+  RotatingCubeCore:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/RotatingCubeCore
+        excludes:
+          - RotatingCubeShaders.metal
+    dependencies:
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: QuartzCore.framework
+      - sdk: AVFoundation.framework
+      - sdk: CoreVideo.framework
+      - sdk: CoreMedia.framework
+      - sdk: VideoToolbox.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hibana.rotatingcube.core
+        PRODUCT_NAME: RotatingCubeCore
+        PRODUCT_MODULE_NAME: RotatingCubeCore
+  RotatingCubeApp:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/RotatingCubeApp
+      - Sources/RotatingCubeCore/RotatingCubeShaders.metal
+    dependencies:
+      - target: RotatingCubeCore
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: QuartzCore.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hibana.rotatingcube.app
+        INFOPLIST_FILE: Config/RotatingCubeApp-Info.plist
+        PRODUCT_NAME: RotatingCube
+        PRODUCT_MODULE_NAME: RotatingCubeApp
+        GENERATE_INFOPLIST_FILE: NO
+  RotatingCubeSaver:
+    type: bundle
+    platform: macOS
+    sources:
+      - Sources/RotatingCubeSaver
+      - Sources/RotatingCubeCore/RotatingCubeShaders.metal
+    dependencies:
+      - target: RotatingCubeCore
+      - sdk: ScreenSaver.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: QuartzCore.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hibana.rotatingcube.saver
+        PRODUCT_NAME: RotatingCube
+        PRODUCT_MODULE_NAME: RotatingCubeSaver
+        INFOPLIST_FILE: Config/RotatingCubeSaver-Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        WRAPPER_EXTENSION: saver
+        MACH_O_TYPE: mh_bundle
+        LIBRARY_SEARCH_PATHS:
+          - "$(inherited)"
+          - "$(BUILT_PRODUCTS_DIR)"
+        OTHER_LDFLAGS:
+          - "$(inherited)"
+          - "-lRotatingCubeCore"
+  RotatingCubeRenderTool:
+    type: tool
+    platform: macOS
+    sources:
+      - Sources/RotatingCubeRenderTool
+      - Sources/RotatingCubeCore/RotatingCubeShaders.metal
+    dependencies:
+      - target: RotatingCubeCore
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+      - sdk: QuartzCore.framework
+      - sdk: AVFoundation.framework
+      - sdk: CoreVideo.framework
+      - sdk: CoreMedia.framework
+      - sdk: VideoToolbox.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hibana.rotatingcube.rendertool
+        PRODUCT_NAME: RotatingCubeRenderTool
+        PRODUCT_MODULE_NAME: RotatingCubeRenderTool
+  RotatingCubeCoreTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/RotatingCubeCoreTests
+    dependencies:
+      - target: RotatingCubeCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hibana.rotatingcube.tests
+        INFOPLIST_FILE: Config/RotatingCubeTests-Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+schemes:
+  RotatingCubeApp:
+    build:
+      targets:
+        RotatingCubeApp: all
+        RotatingCubeCore: [run, test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - RotatingCubeCoreTests
+  RotatingCubeSaver:
+    build:
+      targets:
+        RotatingCubeSaver: all
+  RotatingCubeRenderTool:
+    build:
+      targets:
+        RotatingCubeRenderTool: all

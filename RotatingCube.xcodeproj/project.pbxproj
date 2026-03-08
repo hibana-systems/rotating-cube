@@ -1,0 +1,932 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03DC12E6AC0554F941BE4CD3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
+		0830B2685AFEDF1FBDB81BBC /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95B5DC18E534B1FC76DFC5 /* Metal.framework */; };
+		083507953C900F79C4304DCA /* RotatingCubeShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */; };
+		0A4B44F46740AD11CC4D94B4 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */; };
+		18AEB91188D9616BCC13384B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B017AD5A2961929AD19A4B6D /* VideoToolbox.framework */; };
+		230FDD4FCE15E7C7B2AABA68 /* libRotatingCubeCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */; };
+		24B9B1D2583221920C0FE6F6 /* RotatingCubeVideoExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE43335FBC0B0B44710DBB0 /* RotatingCubeVideoExporter.swift */; };
+		256429E32349A7B1F8D6E10A /* MetalShaderTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52997FE45D8A4A66DCD0FB44 /* MetalShaderTypes.swift */; };
+		2614F2891C9B49AD3E5B3E3C /* MatrixMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1A2C251224551EBCBC019 /* MatrixMath.swift */; };
+		31E56F2C1AC3BC7415ECA859 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FEE14E997E1351FC7564E7 /* CoreMedia.framework */; };
+		32CC68C6133624EA68A8CBCB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95B5DC18E534B1FC76DFC5 /* Metal.framework */; };
+		336479E924E52CC49F70EBEF /* SceneSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03F2C5B97F5F8A65CB09BE /* SceneSpec.swift */; };
+		3708533FA6A3B16A787DE9F3 /* RendererTimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EF87185F3A0B8D4E515AD9 /* RendererTimelineTests.swift */; };
+		37149797929B9A232DD9EB49 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */; };
+		3776C8958D23AA6A5412BFF5 /* MetalPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20C8A663F997A45E248137F /* MetalPreviewView.swift */; };
+		378A8467835ED83F9DBF227D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04F43E31BC7AA90341E4224 /* main.swift */; };
+		3BE3F886AF4E15B573A6B64D /* RotatingCubeMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F13CB3D20807163D6E4C88 /* RotatingCubeMetalView.swift */; };
+		3BF21B8DEBDD40AF3BC0B7DB /* OpaqueWindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF2A36E6D54DB6A0D8E07AA /* OpaqueWindowConfigurator.swift */; };
+		432354ACA17EE3A2ABF5D191 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B017AD5A2961929AD19A4B6D /* VideoToolbox.framework */; };
+		49214188259C186B5D21CAA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
+		4FD25B4A994D1A2B0A433AB1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EBCD2739D12BB5B6DDE717 /* AVFoundation.framework */; };
+		6164AE7F0C34FF4949E87D35 /* SceneGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04867F85649B6DE1B3CB30 /* SceneGeometry.swift */; };
+		627C06E1AE432223218BB99D /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */; };
+		6B07A2BE8A1FE4833CF0AB2A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
+		6C3544CC3F790547819B952D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
+		74D23608DFFBC2A3383DC21E /* RotatingCubeShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */; };
+		751658FE204BD1D0489480A1 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */; };
+		7615271C1D36FFCCE764E23A /* RotatingCubeMetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B571259677A21A9E0DB09 /* RotatingCubeMetalRenderer.swift */; };
+		76C4D5E1CCE51EB1A51ADCF9 /* SceneGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81186F7502CBFAF084E5B8E5 /* SceneGeometryTests.swift */; };
+		7DCBEF1486229C339E49C3E9 /* RotatingCubeScreenSaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF8D4D30742E400A333F99F /* RotatingCubeScreenSaverView.swift */; };
+		7E78C0B473E619123D06340E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FEE14E997E1351FC7564E7 /* CoreMedia.framework */; };
+		842FB4AE9929BE618ABE176F /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 798BC38C7FFE3728FB4DA64F /* ScreenSaver.framework */; };
+		9B7063C85493DC986F628D95 /* RendererTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC19C721DC0CF115557F6D /* RendererTimeline.swift */; };
+		A1585E1210C9EB5EC379E68C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DB2E44E648D6684B12FF7B /* CoreVideo.framework */; };
+		A9291F6C400F55E7627F4873 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EBCD2739D12BB5B6DDE717 /* AVFoundation.framework */; };
+		ABFCA55208ADF2E6AA6FF6D9 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DB2E44E648D6684B12FF7B /* CoreVideo.framework */; };
+		AE4B3B5AD98924663939618C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95B5DC18E534B1FC76DFC5 /* Metal.framework */; };
+		AF17028AB850824234230709 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD7BD6D8DD8DE99F82CC58C /* ContentView.swift */; };
+		D3B3D305CED04D521EE643EC /* libRotatingCubeCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */; };
+		E0BE94E32FF2B8C1B0588E68 /* libRotatingCubeCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */; };
+		E717AFF7B06DD1C8C718D445 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95B5DC18E534B1FC76DFC5 /* Metal.framework */; };
+		EA2CA7B3CC50B6D972B2C6B5 /* RotatingCubeShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */; };
+		EE6E0577F588E0861CD214DE /* RotatingCubeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF9BB0DF10896C42014E8D9 /* RotatingCubeApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1598C4BFA7E4CED91AC0264C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88CEC6154E19BB5E3259347F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89EDEBE7776A1A59BA40CDA6;
+			remoteInfo = RotatingCubeCore;
+		};
+		28D42E37C5E7C14967E7B9C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88CEC6154E19BB5E3259347F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89EDEBE7776A1A59BA40CDA6;
+			remoteInfo = RotatingCubeCore;
+		};
+		4E566BA616DB2B11787B3A20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88CEC6154E19BB5E3259347F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89EDEBE7776A1A59BA40CDA6;
+			remoteInfo = RotatingCubeCore;
+		};
+		C537CD34C4EBD078E3F4A888 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88CEC6154E19BB5E3259347F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89EDEBE7776A1A59BA40CDA6;
+			remoteInfo = RotatingCubeCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		05AB8196F47383FC7CCC72AE /* RotatingCubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RotatingCubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		09EBCD2739D12BB5B6DDE717 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0C95B5DC18E534B1FC76DFC5 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		0D4373D7D6362F4C060169D3 /* RotatingCubeRenderTool */ = {isa = PBXFileReference; includeInIndex = 0; path = RotatingCubeRenderTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FE43335FBC0B0B44710DBB0 /* RotatingCubeVideoExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeVideoExporter.swift; sourceTree = "<group>"; };
+		10EE52C36673FC886A2FA181 /* RotatingCubeSaver.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotatingCubeSaver.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EF2A36E6D54DB6A0D8E07AA /* OpaqueWindowConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpaqueWindowConfigurator.swift; sourceTree = "<group>"; };
+		37FC19C721DC0CF115557F6D /* RendererTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererTimeline.swift; sourceTree = "<group>"; };
+		4A03F2C5B97F5F8A65CB09BE /* SceneSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSpec.swift; sourceTree = "<group>"; };
+		50DB2E44E648D6684B12FF7B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		52997FE45D8A4A66DCD0FB44 /* MetalShaderTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalShaderTypes.swift; sourceTree = "<group>"; };
+		66F13CB3D20807163D6E4C88 /* RotatingCubeMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeMetalView.swift; sourceTree = "<group>"; };
+		798BC38C7FFE3728FB4DA64F /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
+		7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRotatingCubeCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D04867F85649B6DE1B3CB30 /* SceneGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGeometry.swift; sourceTree = "<group>"; };
+		81186F7502CBFAF084E5B8E5 /* SceneGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGeometryTests.swift; sourceTree = "<group>"; };
+		82D1A2C251224551EBCBC019 /* MatrixMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixMath.swift; sourceTree = "<group>"; };
+		86FEE14E997E1351FC7564E7 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		8BF8D4D30742E400A333F99F /* RotatingCubeScreenSaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeScreenSaverView.swift; sourceTree = "<group>"; };
+		9B2B571259677A21A9E0DB09 /* RotatingCubeMetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeMetalRenderer.swift; sourceTree = "<group>"; };
+		AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		B017AD5A2961929AD19A4B6D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		B5D03996805B6E77FE6CE16A /* RotatingCubeCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotatingCubeCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1EF87185F3A0B8D4E515AD9 /* RendererTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererTimelineTests.swift; sourceTree = "<group>"; };
+		CFD7BD6D8DD8DE99F82CC58C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E20C8A663F997A45E248137F /* MetalPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalPreviewView.swift; sourceTree = "<group>"; };
+		EFF9BB0DF10896C42014E8D9 /* RotatingCubeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeApp.swift; sourceTree = "<group>"; };
+		F04F43E31BC7AA90341E4224 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RotatingCubeShaders.metal; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4532A68AD02457646F3BD502 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0BE94E32FF2B8C1B0588E68 /* libRotatingCubeCore.a in Frameworks */,
+				0830B2685AFEDF1FBDB81BBC /* Metal.framework in Frameworks */,
+				627C06E1AE432223218BB99D /* MetalKit.framework in Frameworks */,
+				6C3544CC3F790547819B952D /* QuartzCore.framework in Frameworks */,
+				4FD25B4A994D1A2B0A433AB1 /* AVFoundation.framework in Frameworks */,
+				A1585E1210C9EB5EC379E68C /* CoreVideo.framework in Frameworks */,
+				31E56F2C1AC3BC7415ECA859 /* CoreMedia.framework in Frameworks */,
+				18AEB91188D9616BCC13384B /* VideoToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		479ED64798DC4946BF6EC530 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				230FDD4FCE15E7C7B2AABA68 /* libRotatingCubeCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A059F0B6291EC32EB6C087A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842FB4AE9929BE618ABE176F /* ScreenSaver.framework in Frameworks */,
+				32CC68C6133624EA68A8CBCB /* Metal.framework in Frameworks */,
+				751658FE204BD1D0489480A1 /* MetalKit.framework in Frameworks */,
+				03DC12E6AC0554F941BE4CD3 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B860500ABD7C6A71AC9120D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3B3D305CED04D521EE643EC /* libRotatingCubeCore.a in Frameworks */,
+				E717AFF7B06DD1C8C718D445 /* Metal.framework in Frameworks */,
+				37149797929B9A232DD9EB49 /* MetalKit.framework in Frameworks */,
+				49214188259C186B5D21CAA3 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B93DFF6B83EB1FE8E2263C0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE4B3B5AD98924663939618C /* Metal.framework in Frameworks */,
+				0A4B44F46740AD11CC4D94B4 /* MetalKit.framework in Frameworks */,
+				6B07A2BE8A1FE4833CF0AB2A /* QuartzCore.framework in Frameworks */,
+				A9291F6C400F55E7627F4873 /* AVFoundation.framework in Frameworks */,
+				ABFCA55208ADF2E6AA6FF6D9 /* CoreVideo.framework in Frameworks */,
+				7E78C0B473E619123D06340E /* CoreMedia.framework in Frameworks */,
+				432354ACA17EE3A2ABF5D191 /* VideoToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		329FEB6AADDB0F71BEF44350 /* RotatingCubeSaver */ = {
+			isa = PBXGroup;
+			children = (
+				8BF8D4D30742E400A333F99F /* RotatingCubeScreenSaverView.swift */,
+			);
+			path = RotatingCubeSaver;
+			sourceTree = "<group>";
+		};
+		3A5C15408E020F3F70C16C63 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EF32F2A51E6F08FA70A6CC75 /* RotatingCubeApp */,
+				EEB40A982950194B0AE84812 /* RotatingCubeCore */,
+				9FBA60117B810C71BA78D6D3 /* RotatingCubeRenderTool */,
+				329FEB6AADDB0F71BEF44350 /* RotatingCubeSaver */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		3AC040D207F9C51E974985CD /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				51CB8E10CA5842B3535E9788 /* RotatingCubeCoreTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		4D2A2D1348006230DC03B52A = {
+			isa = PBXGroup;
+			children = (
+				3A5C15408E020F3F70C16C63 /* Sources */,
+				3AC040D207F9C51E974985CD /* Tests */,
+				5300450C5A96394864BE18CE /* Frameworks */,
+				E41492AD2008F53A72E235D7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		51CB8E10CA5842B3535E9788 /* RotatingCubeCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				C1EF87185F3A0B8D4E515AD9 /* RendererTimelineTests.swift */,
+				81186F7502CBFAF084E5B8E5 /* SceneGeometryTests.swift */,
+			);
+			path = RotatingCubeCoreTests;
+			sourceTree = "<group>";
+		};
+		5300450C5A96394864BE18CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09EBCD2739D12BB5B6DDE717 /* AVFoundation.framework */,
+				86FEE14E997E1351FC7564E7 /* CoreMedia.framework */,
+				50DB2E44E648D6684B12FF7B /* CoreVideo.framework */,
+				0C95B5DC18E534B1FC76DFC5 /* Metal.framework */,
+				AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */,
+				00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */,
+				798BC38C7FFE3728FB4DA64F /* ScreenSaver.framework */,
+				B017AD5A2961929AD19A4B6D /* VideoToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9FBA60117B810C71BA78D6D3 /* RotatingCubeRenderTool */ = {
+			isa = PBXGroup;
+			children = (
+				F04F43E31BC7AA90341E4224 /* main.swift */,
+			);
+			path = RotatingCubeRenderTool;
+			sourceTree = "<group>";
+		};
+		E41492AD2008F53A72E235D7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */,
+				05AB8196F47383FC7CCC72AE /* RotatingCubeApp.app */,
+				B5D03996805B6E77FE6CE16A /* RotatingCubeCoreTests.xctest */,
+				0D4373D7D6362F4C060169D3 /* RotatingCubeRenderTool */,
+				10EE52C36673FC886A2FA181 /* RotatingCubeSaver.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EEB40A982950194B0AE84812 /* RotatingCubeCore */ = {
+			isa = PBXGroup;
+			children = (
+				82D1A2C251224551EBCBC019 /* MatrixMath.swift */,
+				52997FE45D8A4A66DCD0FB44 /* MetalShaderTypes.swift */,
+				37FC19C721DC0CF115557F6D /* RendererTimeline.swift */,
+				9B2B571259677A21A9E0DB09 /* RotatingCubeMetalRenderer.swift */,
+				66F13CB3D20807163D6E4C88 /* RotatingCubeMetalView.swift */,
+				FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */,
+				0FE43335FBC0B0B44710DBB0 /* RotatingCubeVideoExporter.swift */,
+				7D04867F85649B6DE1B3CB30 /* SceneGeometry.swift */,
+				4A03F2C5B97F5F8A65CB09BE /* SceneSpec.swift */,
+			);
+			path = RotatingCubeCore;
+			sourceTree = "<group>";
+		};
+		EF32F2A51E6F08FA70A6CC75 /* RotatingCubeApp */ = {
+			isa = PBXGroup;
+			children = (
+				CFD7BD6D8DD8DE99F82CC58C /* ContentView.swift */,
+				E20C8A663F997A45E248137F /* MetalPreviewView.swift */,
+				1EF2A36E6D54DB6A0D8E07AA /* OpaqueWindowConfigurator.swift */,
+				EFF9BB0DF10896C42014E8D9 /* RotatingCubeApp.swift */,
+			);
+			path = RotatingCubeApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01175B644726FA609C044869 /* RotatingCubeSaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DF477688D5376902B7B3CF8 /* Build configuration list for PBXNativeTarget "RotatingCubeSaver" */;
+			buildPhases = (
+				57613FEE305C9E101CA88311 /* Sources */,
+				4A059F0B6291EC32EB6C087A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03C9BF5F146D0654F157F03C /* PBXTargetDependency */,
+			);
+			name = RotatingCubeSaver;
+			packageProductDependencies = (
+			);
+			productName = RotatingCubeSaver;
+			productReference = 10EE52C36673FC886A2FA181 /* RotatingCubeSaver.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FE9884C7DBAED9C39BD8CE4 /* Build configuration list for PBXNativeTarget "RotatingCubeCore" */;
+			buildPhases = (
+				688012B56B0329BB590BB5D7 /* Sources */,
+				4653CECF933FA3323B73BF5C /* Copy Swift Objective-C Interface Header */,
+				B93DFF6B83EB1FE8E2263C0E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RotatingCubeCore;
+			packageProductDependencies = (
+			);
+			productName = RotatingCubeCore;
+			productReference = 7CF8E39552DB9CA778CD207E /* libRotatingCubeCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B6CA5937F416A355F1D1E02C /* RotatingCubeRenderTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D4F291C4F009700B365FD39 /* Build configuration list for PBXNativeTarget "RotatingCubeRenderTool" */;
+			buildPhases = (
+				6E4044D9E03C8E1B372EF904 /* Sources */,
+				4532A68AD02457646F3BD502 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1D08EDB6EC17516FB3A7D03 /* PBXTargetDependency */,
+			);
+			name = RotatingCubeRenderTool;
+			packageProductDependencies = (
+			);
+			productName = RotatingCubeRenderTool;
+			productReference = 0D4373D7D6362F4C060169D3 /* RotatingCubeRenderTool */;
+			productType = "com.apple.product-type.tool";
+		};
+		F3CF86049750B3C805AD4AE1 /* RotatingCubeApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57638CDE458F641B4EB5EF8A /* Build configuration list for PBXNativeTarget "RotatingCubeApp" */;
+			buildPhases = (
+				53CFAE1E5622DD7DE056A2BB /* Sources */,
+				B860500ABD7C6A71AC9120D6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D5A627C3F4439E916D54248 /* PBXTargetDependency */,
+			);
+			name = RotatingCubeApp;
+			packageProductDependencies = (
+			);
+			productName = RotatingCubeApp;
+			productReference = 05AB8196F47383FC7CCC72AE /* RotatingCubeApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F96DA2E32CCCB6C155452B9E /* RotatingCubeCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71AFC950A08EB99D058D3062 /* Build configuration list for PBXNativeTarget "RotatingCubeCoreTests" */;
+			buildPhases = (
+				5CBF5869B8AC05EFEC39341C /* Sources */,
+				479ED64798DC4946BF6EC530 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EF43FFC776C21F3EAB91384 /* PBXTargetDependency */,
+			);
+			name = RotatingCubeCoreTests;
+			packageProductDependencies = (
+			);
+			productName = RotatingCubeCoreTests;
+			productReference = B5D03996805B6E77FE6CE16A /* RotatingCubeCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88CEC6154E19BB5E3259347F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					01175B644726FA609C044869 = {
+						ProvisioningStyle = Manual;
+					};
+					89EDEBE7776A1A59BA40CDA6 = {
+						ProvisioningStyle = Manual;
+					};
+					B6CA5937F416A355F1D1E02C = {
+						ProvisioningStyle = Manual;
+					};
+					F3CF86049750B3C805AD4AE1 = {
+						ProvisioningStyle = Manual;
+					};
+					F96DA2E32CCCB6C155452B9E = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = C4FCAF0688FBC5EA21C705EF /* Build configuration list for PBXProject "RotatingCube" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4D2A2D1348006230DC03B52A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E41492AD2008F53A72E235D7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3CF86049750B3C805AD4AE1 /* RotatingCubeApp */,
+				89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */,
+				F96DA2E32CCCB6C155452B9E /* RotatingCubeCoreTests */,
+				B6CA5937F416A355F1D1E02C /* RotatingCubeRenderTool */,
+				01175B644726FA609C044869 /* RotatingCubeSaver */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4653CECF933FA3323B73BF5C /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		53CFAE1E5622DD7DE056A2BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF17028AB850824234230709 /* ContentView.swift in Sources */,
+				3776C8958D23AA6A5412BFF5 /* MetalPreviewView.swift in Sources */,
+				3BF21B8DEBDD40AF3BC0B7DB /* OpaqueWindowConfigurator.swift in Sources */,
+				EE6E0577F588E0861CD214DE /* RotatingCubeApp.swift in Sources */,
+				74D23608DFFBC2A3383DC21E /* RotatingCubeShaders.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57613FEE305C9E101CA88311 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DCBEF1486229C339E49C3E9 /* RotatingCubeScreenSaverView.swift in Sources */,
+				EA2CA7B3CC50B6D972B2C6B5 /* RotatingCubeShaders.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CBF5869B8AC05EFEC39341C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3708533FA6A3B16A787DE9F3 /* RendererTimelineTests.swift in Sources */,
+				76C4D5E1CCE51EB1A51ADCF9 /* SceneGeometryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		688012B56B0329BB590BB5D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2614F2891C9B49AD3E5B3E3C /* MatrixMath.swift in Sources */,
+				256429E32349A7B1F8D6E10A /* MetalShaderTypes.swift in Sources */,
+				9B7063C85493DC986F628D95 /* RendererTimeline.swift in Sources */,
+				7615271C1D36FFCCE764E23A /* RotatingCubeMetalRenderer.swift in Sources */,
+				3BE3F886AF4E15B573A6B64D /* RotatingCubeMetalView.swift in Sources */,
+				24B9B1D2583221920C0FE6F6 /* RotatingCubeVideoExporter.swift in Sources */,
+				6164AE7F0C34FF4949E87D35 /* SceneGeometry.swift in Sources */,
+				336479E924E52CC49F70EBEF /* SceneSpec.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E4044D9E03C8E1B372EF904 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				083507953C900F79C4304DCA /* RotatingCubeShaders.metal in Sources */,
+				378A8467835ED83F9DBF227D /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03C9BF5F146D0654F157F03C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */;
+			targetProxy = 4E566BA616DB2B11787B3A20 /* PBXContainerItemProxy */;
+		};
+		3D5A627C3F4439E916D54248 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */;
+			targetProxy = 1598C4BFA7E4CED91AC0264C /* PBXContainerItemProxy */;
+		};
+		9EF43FFC776C21F3EAB91384 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */;
+			targetProxy = 28D42E37C5E7C14967E7B9C6 /* PBXContainerItemProxy */;
+		};
+		D1D08EDB6EC17516FB3A7D03 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89EDEBE7776A1A59BA40CDA6 /* RotatingCubeCore */;
+			targetProxy = C537CD34C4EBD078E3F4A888 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		067306D811673A3FA4C1F879 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.rendertool;
+				PRODUCT_MODULE_NAME = RotatingCubeRenderTool;
+				PRODUCT_NAME = RotatingCubeRenderTool;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0C05167219A3AD1D8F490EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.tests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		24D56056D760420AD8B536A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		35EE0EBFE9BC5BE63B29BA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeApp-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.app;
+				PRODUCT_MODULE_NAME = RotatingCubeApp;
+				PRODUCT_NAME = RotatingCube;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		409E1700EA917723CBED4E5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.core;
+				PRODUCT_MODULE_NAME = RotatingCubeCore;
+				PRODUCT_NAME = RotatingCubeCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		68AB06AC1F74F90C5CE9FA19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeApp-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.app;
+				PRODUCT_MODULE_NAME = RotatingCubeApp;
+				PRODUCT_NAME = RotatingCube;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7A35DA09904CF441E822A287 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.tests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7CBFF60A074368A189F6026F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeSaver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				MACH_O_TYPE = mh_bundle;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lRotatingCubeCore",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.saver;
+				PRODUCT_MODULE_NAME = RotatingCubeSaver;
+				PRODUCT_NAME = RotatingCube;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Debug;
+		};
+		83306839FE0BBCDE15CB13A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.core;
+				PRODUCT_MODULE_NAME = RotatingCubeCore;
+				PRODUCT_NAME = RotatingCubeCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		88029189FA9EC26100043E5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.rendertool;
+				PRODUCT_MODULE_NAME = RotatingCubeRenderTool;
+				PRODUCT_NAME = RotatingCubeRenderTool;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		88AF0EC6817906967F797747 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/RotatingCubeSaver-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
+				MACH_O_TYPE = mh_bundle;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lRotatingCubeCore",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hibana.rotatingcube.saver;
+				PRODUCT_MODULE_NAME = RotatingCubeSaver;
+				PRODUCT_NAME = RotatingCube;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
+		9EA83466A0BC64D9D710F6CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0DF477688D5376902B7B3CF8 /* Build configuration list for PBXNativeTarget "RotatingCubeSaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CBFF60A074368A189F6026F /* Debug */,
+				88AF0EC6817906967F797747 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2FE9884C7DBAED9C39BD8CE4 /* Build configuration list for PBXNativeTarget "RotatingCubeCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83306839FE0BBCDE15CB13A9 /* Debug */,
+				409E1700EA917723CBED4E5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4D4F291C4F009700B365FD39 /* Build configuration list for PBXNativeTarget "RotatingCubeRenderTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				88029189FA9EC26100043E5D /* Debug */,
+				067306D811673A3FA4C1F879 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		57638CDE458F641B4EB5EF8A /* Build configuration list for PBXNativeTarget "RotatingCubeApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68AB06AC1F74F90C5CE9FA19 /* Debug */,
+				35EE0EBFE9BC5BE63B29BA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		71AFC950A08EB99D058D3062 /* Build configuration list for PBXNativeTarget "RotatingCubeCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C05167219A3AD1D8F490EDB /* Debug */,
+				7A35DA09904CF441E822A287 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C4FCAF0688FBC5EA21C705EF /* Build configuration list for PBXProject "RotatingCube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EA83466A0BC64D9D710F6CF /* Debug */,
+				24D56056D760420AD8B536A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 88CEC6154E19BB5E3259347F /* Project object */;
+}
