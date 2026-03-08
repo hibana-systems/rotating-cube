@@ -15,6 +15,7 @@ struct SceneKitRendererView: NSViewRepresentable {
         view.antialiasingMode = .multisampling4X
         view.allowsCameraControl = false
         view.autoenablesDefaultLighting = false
+        view.preferredFramesPerSecond = 20
         view.rendersContinuously = true
         view.isPlaying = true
         updateScene(for: view, coordinator: context.coordinator)

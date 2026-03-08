@@ -128,12 +128,12 @@ public struct CubeSceneSpec: Sendable, Equatable {
         palette: ScenePalette(
             cubeCore: RGBAColor(red: 0.78, green: 1.00, blue: 0.84, alpha: 0.98),
             cubeGlow: RGBAColor(red: 0.34, green: 1.00, blue: 0.55, alpha: 0.88),
-            gridCore: RGBAColor(red: 0.20, green: 0.98, blue: 0.53, alpha: 0.66),
-            gridGlow: RGBAColor(red: 0.16, green: 0.86, blue: 0.44, alpha: 0.34)
+            gridCore: RGBAColor(red: 0.14, green: 1.00, blue: 0.30, alpha: 0.70),
+            gridGlow: RGBAColor(red: 0.10, green: 0.82, blue: 0.18, alpha: 0.30)
         ),
         cube: CubeParameters(
             size: 3.2,
-            center: SIMD3<Double>(0, 2.3, 0),
+            center: SIMD3<Double>(0, 2.65, 0),
             lineRadius: 0.0135,
             glowRadiusMultiplier: 1.8,
             xTiltDegrees: 30,

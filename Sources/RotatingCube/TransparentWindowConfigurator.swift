@@ -25,8 +25,8 @@ struct TransparentWindowConfigurator: NSViewRepresentable {
             window.styleMask.insert(.fullSizeContentView)
         }
 
-        window.isOpaque = false
-        window.backgroundColor = .clear
+        window.isOpaque = true
+        window.backgroundColor = .black
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
@@ -36,25 +36,6 @@ struct TransparentWindowConfigurator: NSViewRepresentable {
         window.identifier = NSUserInterfaceItemIdentifier("rotating-cube-window")
 
         window.contentView?.wantsLayer = true
-        window.contentView?.layer?.backgroundColor = NSColor.clear.cgColor
-    }
-}
-
-struct VisualEffectView: NSViewRepresentable {
-    let material: NSVisualEffectView.Material
-    let blendingMode: NSVisualEffectView.BlendingMode
-
-    func makeNSView(context: Context) -> NSVisualEffectView {
-        let view = NSVisualEffectView(frame: .zero)
-        view.state = .active
-        view.material = material
-        view.blendingMode = blendingMode
-        return view
-    }
-
-    func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
-        nsView.state = .active
-        nsView.material = material
-        nsView.blendingMode = blendingMode
+        window.contentView?.layer?.backgroundColor = NSColor.black.cgColor
     }
 }
