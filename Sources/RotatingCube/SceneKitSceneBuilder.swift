@@ -4,6 +4,11 @@ import SceneKit
 import simd
 
 enum SceneKitSceneBuilder {
+    private enum SegmentGeometryStyle {
+        case capsule
+        case cylinder(overlap: Double, radialSegmentCount: Int)
+    }
+
     struct BuiltScene {
         let scene: SCNScene
         let pointOfView: SCNNode
@@ -88,23 +93,45 @@ enum SceneKitSceneBuilder {
             0
         )
 
-        let segments = WireframeGeometryBuilder.cubeSegments(
+        let vertices = WireframeGeometryBuilder.cubeVertices(
             size: spec.cube.size,
             center: .zero
         )
+        let spectralSubdivisionCount = 36
 
-        for segment in segments {
-            pitchNode.addChildNode(
-                makeGlowingSegmentNode(
-                    segment: segment,
-                    radius: spec.cube.lineRadius,
-                    glowRadiusMultiplier: spec.cube.glowRadiusMultiplier,
-                    coreColor: spec.palette.cubeCore.nsColor,
-                    haloColor: spec.palette.cubeGlow.nsColor,
-                    coreOpacity: 0.80,
-                    haloOpacity: 0.18
+        for (startIndex, endIndex) in WireframeGeometryBuilder.cubeEdgeIndices {
+            let start = vertices[startIndex]
+            let end = vertices[endIndex]
+            let edge = LineSegment(start: start, end: end)
+
+            for segment in subdividedSegments(edge, count: spectralSubdivisionCount) {
+                let midpoint = (segment.start + segment.end) / 2
+                let color = boostSaturation(
+                    spectralColor(for: midpoint, cubeSize: spec.cube.size),
+                    multiplier: 1.15
                 )
-            )
+
+                pitchNode.addChildNode(
+                    makeGlowingSegmentNode(
+                        segment: segment,
+                        radius: spec.cube.lineRadius,
+                        glowRadiusMultiplier: spec.cube.glowRadiusMultiplier,
+                        coreColor: color,
+                        haloColor: color,
+                        coreOpacity: 0.96,
+                        haloOpacity: 0.22,
+                        coreBlendMode: .alpha,
+                        haloBlendMode: .screen,
+                        coreWritesToDepthBuffer: true,
+                        haloWritesToDepthBuffer: false,
+                        readsFromDepthBuffer: true,
+                        style: .cylinder(
+                            overlap: spec.cube.lineRadius * 1.6,
+                            radialSegmentCount: 18
+                        )
+                    )
+                )
+            }
         }
 
         yawNode.addChildNode(pitchNode)
@@ -136,45 +163,76 @@ enum SceneKitSceneBuilder {
         coreColor: NSColor,
         haloColor: NSColor,
         coreOpacity: CGFloat,
-        haloOpacity: CGFloat
+        haloOpacity: CGFloat,
+        coreBlendMode: SCNBlendMode = .add,
+        haloBlendMode: SCNBlendMode = .add,
+        coreWritesToDepthBuffer: Bool = false,
+        haloWritesToDepthBuffer: Bool = false,
+        readsFromDepthBuffer: Bool = false,
+        style: SegmentGeometryStyle = .capsule
     ) -> SCNNode {
         let node = SCNNode()
         node.addChildNode(
-            makeCapsuleSegmentNode(
+            makeSegmentNode(
                 segment: segment,
                 radius: radius * glowRadiusMultiplier,
                 diffuseColor: haloColor.withAlphaComponent(haloOpacity * 0.18),
-                emissionColor: haloColor.withAlphaComponent(haloOpacity)
+                emissionColor: haloColor.withAlphaComponent(haloOpacity),
+                blendMode: haloBlendMode,
+                writesToDepthBuffer: haloWritesToDepthBuffer,
+                readsFromDepthBuffer: readsFromDepthBuffer,
+                style: style
             )
         )
         node.addChildNode(
-            makeCapsuleSegmentNode(
+            makeSegmentNode(
                 segment: segment,
                 radius: radius,
                 diffuseColor: coreColor.withAlphaComponent(coreOpacity * 0.28),
-                emissionColor: coreColor.withAlphaComponent(coreOpacity)
+                emissionColor: coreColor.withAlphaComponent(coreOpacity),
+                blendMode: coreBlendMode,
+                writesToDepthBuffer: coreWritesToDepthBuffer,
+                readsFromDepthBuffer: readsFromDepthBuffer,
+                style: style
             )
         )
         return node
     }
 
-    private static func makeCapsuleSegmentNode(
+    private static func makeSegmentNode(
         segment: LineSegment,
         radius: Double,
         diffuseColor: NSColor,
-        emissionColor: NSColor
+        emissionColor: NSColor,
+        blendMode: SCNBlendMode,
+        writesToDepthBuffer: Bool,
+        readsFromDepthBuffer: Bool,
+        style: SegmentGeometryStyle
     ) -> SCNNode {
         let vector = segment.end - segment.start
         let length = simd_length(vector)
 
-        let geometry = SCNCapsule(capRadius: radius, height: length)
+        let geometry: SCNGeometry
+
+        switch style {
+        case .capsule:
+            geometry = SCNCapsule(capRadius: radius, height: length)
+        case let .cylinder(overlap, radialSegmentCount):
+            let cylinder = SCNCylinder(radius: radius, height: length + overlap)
+            cylinder.radialSegmentCount = radialSegmentCount
+            geometry = cylinder
+        }
+
         let material = SCNMaterial()
         material.lightingModel = .constant
         material.diffuse.contents = diffuseColor
         material.emission.contents = emissionColor
         material.roughness.contents = 1.0
         material.metalness.contents = 0.0
-        material.blendMode = .add
+        material.blendMode = blendMode
+        material.writesToDepthBuffer = writesToDepthBuffer
+        material.readsFromDepthBuffer = readsFromDepthBuffer
+        material.isDoubleSided = true
         geometry.firstMaterial = material
 
         let node = SCNNode(geometry: geometry)
@@ -218,6 +276,81 @@ enum SceneKitSceneBuilder {
             axis: SIMD3<Float>(Float(axis.x), Float(axis.y), Float(axis.z))
         )
     }
+
+    private static func subdividedSegments(_ segment: LineSegment, count: Int) -> [LineSegment] {
+        guard count > 1 else {
+            return [segment]
+        }
+
+        return (0..<count).map { index in
+            let startT = Double(index) / Double(count)
+            let endT = Double(index + 1) / Double(count)
+
+            return LineSegment(
+                start: mix(segment.start, segment.end, t: startT),
+                end: mix(segment.start, segment.end, t: endT)
+            )
+        }
+    }
+
+    private static func spectralColor(
+        for point: SIMD3<Double>,
+        cubeSize: Double
+    ) -> NSColor {
+        let half = cubeSize / 2
+        let u = clamp((point.x + half) / cubeSize)
+        let v = clamp((point.y + half) / cubeSize)
+        let w = clamp((point.z + half) / cubeSize)
+
+        let c00 = mix(spectralCornerColors[0], spectralCornerColors[1], t: u)
+        let c10 = mix(spectralCornerColors[3], spectralCornerColors[2], t: u)
+        let c01 = mix(spectralCornerColors[4], spectralCornerColors[5], t: u)
+        let c11 = mix(spectralCornerColors[7], spectralCornerColors[6], t: u)
+        let c0 = mix(c00, c10, t: v)
+        let c1 = mix(c01, c11, t: v)
+        let color = mix(c0, c1, t: w)
+
+        return NSColor(
+            red: color.x,
+            green: color.y,
+            blue: color.z,
+            alpha: color.w
+        )
+    }
+
+    private static func mix(
+        _ start: SIMD3<Double>,
+        _ end: SIMD3<Double>,
+        t: Double
+    ) -> SIMD3<Double> {
+        start + ((end - start) * t)
+    }
+
+    private static func mix(
+        _ start: SIMD4<Double>,
+        _ end: SIMD4<Double>,
+        t: Double
+    ) -> SIMD4<Double> {
+        let amount = t
+        return start + ((end - start) * amount)
+    }
+
+    private static func clamp(_ value: Double) -> Double {
+        max(0, min(1, value))
+    }
+
+    private static func boostSaturation(
+        _ color: NSColor,
+        multiplier: CGFloat
+    ) -> NSColor {
+        let rgbColor = color.usingColorSpace(.deviceRGB) ?? color
+        return NSColor(
+            hue: rgbColor.hueComponent,
+            saturation: min(rgbColor.saturationComponent * multiplier, 1.0),
+            brightness: rgbColor.brightnessComponent,
+            alpha: rgbColor.alphaComponent
+        )
+    }
 }
 
 private extension RGBAColor {
@@ -240,3 +373,14 @@ private extension SIMD3<Double> {
         SCNVector3(x, y, z)
     }
 }
+
+private let spectralCornerColors: [SIMD4<Double>] = [
+    SIMD4<Double>(0.26, 0.60, 1.00, 1.0),
+    SIMD4<Double>(0.70, 0.48, 1.00, 1.0),
+    SIMD4<Double>(1.00, 0.82, 0.32, 1.0),
+    SIMD4<Double>(0.44, 0.94, 1.00, 1.0),
+    SIMD4<Double>(0.36, 1.00, 0.94, 1.0),
+    SIMD4<Double>(1.00, 0.44, 0.86, 1.0),
+    SIMD4<Double>(1.00, 0.60, 0.50, 1.0),
+    SIMD4<Double>(0.58, 1.00, 0.98, 1.0),
+]

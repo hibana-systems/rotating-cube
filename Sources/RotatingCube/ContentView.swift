@@ -6,7 +6,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            TransparentBackdropView()
+            Color.black
 
             RendererHostView(spec: spec, backend: .sceneKit)
                 .padding(24)
@@ -17,34 +17,5 @@ struct ContentView: View {
             TransparentWindowConfigurator()
                 .frame(width: 0, height: 0)
         )
-    }
-}
-
-private struct TransparentBackdropView: View {
-    var body: some View {
-        ZStack {
-            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
-
-            LinearGradient(
-                colors: [
-                    Color.black.opacity(0.34),
-                    Color.black.opacity(0.18),
-                    Color.black.opacity(0.28),
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-
-            RadialGradient(
-                colors: [
-                    Color(red: 0.20, green: 1.00, blue: 0.58).opacity(0.12),
-                    .clear,
-                ],
-                center: UnitPoint(x: 0.5, y: 0.42),
-                startRadius: 36,
-                endRadius: 340
-            )
-        }
-        .ignoresSafeArea()
     }
 }
