@@ -267,7 +267,7 @@ public struct SceneSpec: Sendable, Equatable {
         ),
         cube: CubeSettings(
             size: 3.2,
-            center: SIMD3<Float>(0, 2.65, 0),
+            center: SIMD3<Float>(0, 1.5, 0),
             lineStyle: LineStyle(
                 coreWidthPixels: 3.0,
                 glowWidthPixels: 5.4,
@@ -282,7 +282,7 @@ public struct SceneSpec: Sendable, Equatable {
         grid: GridSettings(
             extent: 14,
             spacing: 0.72,
-            y: 0.0,
+            y: 0.3,
             lineStyle: LineStyle(
                 coreWidthPixels: 1.4,
                 glowWidthPixels: 2.3,
