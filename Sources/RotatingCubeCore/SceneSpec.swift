@@ -270,7 +270,7 @@ public struct SceneSpec: Sendable, Equatable {
         ),
         cube: CubeSettings(
             size: 3.2,
-            center: SIMD3<Float>(0, 1.5, 0),
+            center: SIMD3<Float>(0, 1.8, 0),
             lineStyle: LineStyle(
                 coreWidthPixels: 3.0,
                 glowWidthPixels: 5.4,
@@ -303,8 +303,8 @@ public struct SceneSpec: Sendable, Equatable {
         ),
         loop: LoopSettings(
             durationSeconds: 30,
-            simulationFPS: 24,
-            outputFPS: 24
+            simulationFPS: 30,
+            outputFPS: 30
         ),
         antiAliasing: AntiAliasingSettings(
             isEnabled: true,
