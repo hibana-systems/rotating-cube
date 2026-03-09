@@ -28,7 +28,11 @@ enum MatrixMath {
         up: SIMD3<Float> = SIMD3<Float>(0, 1, 0)
     ) -> simd_float4x4 {
         let forward = simd_normalize(target - eye)
-        let right = simd_normalize(simd_cross(forward, up))
+        let referenceUp = simd_length_squared(up) > 0 ? simd_normalize(up) : SIMD3<Float>(0, 1, 0)
+        let fallbackUp = abs(simd_dot(forward, referenceUp)) > 0.99
+            ? SIMD3<Float>(0, 0, 1)
+            : referenceUp
+        let right = simd_normalize(simd_cross(forward, fallbackUp))
         let cameraUp = simd_cross(right, forward)
         let translation = SIMD3<Float>(
             -simd_dot(right, eye),
@@ -42,6 +46,31 @@ enum MatrixMath {
             SIMD4<Float>(-forward.x, -forward.y, -forward.z, 0),
             SIMD4<Float>(translation.x, translation.y, translation.z, 1)
         )
+    }
+
+    static func projectToNormalizedDeviceCoordinates(
+        point: SIMD3<Float>,
+        camera: CameraSettings,
+        aspectRatio: Float
+    ) -> SIMD2<Float>? {
+        let projection = perspective(
+            fieldOfViewDegrees: camera.fieldOfViewDegrees,
+            aspectRatio: aspectRatio,
+            nearPlane: camera.nearPlane,
+            farPlane: camera.farPlane
+        )
+        let view = lookAt(
+            eye: camera.position,
+            target: camera.target,
+            up: camera.upVector
+        )
+        let clip = simd_mul(projection * view, SIMD4<Float>(point, 1))
+
+        guard abs(clip.w) > 0.0001 else {
+            return nil
+        }
+
+        return SIMD2<Float>(clip.x / clip.w, clip.y / clip.w)
     }
 
     static func rotationX(_ angle: Float) -> simd_float3x3 {

@@ -25,6 +25,7 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
     private let linearSamplerState: MTLSamplerState
 
     private var viewportSize = CGSize(width: 1, height: 1)
+    private var isReadyToRender = false
     private var sceneTexture: MTLTexture?
     private var bloomTextureA: MTLTexture?
     private var bloomTextureB: MTLTexture?
@@ -85,11 +86,13 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
         view.clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
         view.preferredFramesPerSecond = sceneSpec.loop.outputFPS
         view.enableSetNeedsDisplay = false
-        view.isPaused = false
+        view.isPaused = true
         view.framebufferOnly = false
         view.sampleCount = 1
         view.delegate = self
-        updateRenderTargets(for: view.drawableSize)
+        if updateRenderTargets(for: view.drawableSize) {
+            activateRenderingIfNeeded(for: view)
+        }
     }
 
     public func resetAnimationStartTime() {
@@ -97,11 +100,18 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
     }
 
     public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        updateRenderTargets(for: size)
+        if updateRenderTargets(for: size) {
+            activateRenderingIfNeeded(for: view)
+        }
     }
 
     public func draw(in view: MTKView) {
+        if !isReadyToRender, updateRenderTargets(for: view.drawableSize) {
+            activateRenderingIfNeeded(for: view)
+        }
+
         guard
+            isReadyToRender,
             let drawable = view.currentDrawable,
             let commandBuffer = commandQueue.makeCommandBuffer()
         else {
@@ -381,13 +391,25 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
         encoder.endEncoding()
     }
 
-    private func updateRenderTargets(for size: CGSize) {
-        guard size.width > 0, size.height > 0 else {
+    @MainActor
+    private func activateRenderingIfNeeded(for view: MTKView) {
+        guard !isReadyToRender else {
             return
         }
 
+        isReadyToRender = true
+        view.isPaused = false
+        resetAnimationStartTime()
+    }
+
+    @discardableResult
+    private func updateRenderTargets(for size: CGSize) -> Bool {
+        guard size.width > 0, size.height > 0 else {
+            return false
+        }
+
         if size == viewportSize, sceneTexture != nil, bloomTextureA != nil, bloomTextureB != nil {
-            return
+            return true
         }
 
         viewportSize = size
@@ -411,6 +433,7 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
             height: bloomHeight,
             pixelFormat: .rgba16Float
         )
+        return sceneTexture != nil && bloomTextureA != nil && bloomTextureB != nil
     }
 
     private func makeTexture(
@@ -442,7 +465,8 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
         )
         let view = MatrixMath.lookAt(
             eye: camera.position,
-            target: camera.target
+            target: camera.target,
+            up: camera.upVector
         )
         return projection * view
     }
