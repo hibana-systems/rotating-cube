@@ -48,23 +48,49 @@ enum MatrixMath {
         )
     }
 
-    static func projectToNormalizedDeviceCoordinates(
-        point: SIMD3<Float>,
+    static func effectiveTarget(for camera: CameraSettings) -> SIMD3<Float> {
+        guard camera.pitchDegrees != 0 else {
+            return camera.target
+        }
+
+        return pitchedTarget(
+            from: camera.position,
+            to: camera.target,
+            up: camera.upVector,
+            pitchDegrees: camera.pitchDegrees
+        )
+    }
+
+    static func viewMatrix(camera: CameraSettings) -> simd_float4x4 {
+        lookAt(
+            eye: camera.position,
+            target: effectiveTarget(for: camera),
+            up: camera.upVector
+        )
+    }
+
+    static func viewProjectionMatrix(
         camera: CameraSettings,
         aspectRatio: Float
-    ) -> SIMD2<Float>? {
+    ) -> simd_float4x4 {
         let projection = perspective(
             fieldOfViewDegrees: camera.fieldOfViewDegrees,
             aspectRatio: aspectRatio,
             nearPlane: camera.nearPlane,
             farPlane: camera.farPlane
         )
-        let view = lookAt(
-            eye: camera.position,
-            target: camera.target,
-            up: camera.upVector
+        return projection * viewMatrix(camera: camera)
+    }
+
+    static func projectToNormalizedDeviceCoordinates(
+        point: SIMD3<Float>,
+        camera: CameraSettings,
+        aspectRatio: Float
+    ) -> SIMD2<Float>? {
+        let clip = simd_mul(
+            viewProjectionMatrix(camera: camera, aspectRatio: aspectRatio),
+            SIMD4<Float>(point, 1)
         )
-        let clip = simd_mul(projection * view, SIMD4<Float>(point, 1))
 
         guard abs(clip.w) > 0.0001 else {
             return nil
@@ -93,5 +119,32 @@ enum MatrixMath {
             SIMD3<Float>(0, 1, 0),
             SIMD3<Float>(sine, 0, cosine)
         )
+    }
+
+    private static func pitchedTarget(
+        from position: SIMD3<Float>,
+        to target: SIMD3<Float>,
+        up: SIMD3<Float>,
+        pitchDegrees: Float
+    ) -> SIMD3<Float> {
+        let forward = target - position
+        let distance = simd_length(forward)
+        guard distance > 0.0001 else { return target }
+
+        let normalizedUp = simd_length_squared(up) > 0 ? simd_normalize(up) : SIMD3<Float>(0, 1, 0)
+        let forwardDir = forward / distance
+        let fallbackUp = abs(simd_dot(forwardDir, normalizedUp)) > 0.99
+            ? SIMD3<Float>(0, 0, 1)
+            : normalizedUp
+        let right = simd_normalize(simd_cross(forwardDir, fallbackUp))
+        let angle = pitchDegrees * (.pi / 180)
+        let cosine = cos(angle)
+        let sine = sin(angle)
+
+        let pitchedForward = forwardDir * cosine
+            + simd_cross(right, forwardDir) * sine
+            + right * simd_dot(right, forwardDir) * (1 - cosine)
+
+        return position + pitchedForward * distance
     }
 }

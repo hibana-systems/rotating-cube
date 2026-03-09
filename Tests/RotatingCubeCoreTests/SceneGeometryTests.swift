@@ -75,6 +75,10 @@ final class SceneGeometryTests: XCTestCase {
         XCTAssertEqual(SceneSpec.defaultWallpaper.camera.upVector, SIMD3<Float>(0, -1, 0))
     }
 
+    func testDefaultWallpaperUsesBaselineCameraPreset() {
+        XCTAssertEqual(SceneSpec.defaultWallpaper.camera, SceneSpec.baselineWallpaperCamera)
+    }
+
     func testDefaultWallpaperGridExtendsPastViewportSides() {
         let spec = SceneSpec.defaultWallpaper
         let aspectRatio = Float(spec.output.width) / Float(spec.output.height)
@@ -94,5 +98,32 @@ final class SceneGeometryTests: XCTestCase {
         XCTAssertNotNil(farRightCorner)
         XCTAssertGreaterThan(abs(farLeftCorner!.x), 1.0)
         XCTAssertGreaterThan(abs(farRightCorner!.x), 1.0)
+    }
+
+    func testCameraPitchChangesProjectedScreenPosition() {
+        var pitchedCamera = SceneSpec.defaultWallpaper.camera
+        pitchedCamera.pitchDegrees = 45
+
+        var neutralCamera = pitchedCamera
+        neutralCamera.pitchDegrees = 0
+
+        let aspectRatio = Float(SceneSpec.defaultWallpaper.output.width)
+            / Float(SceneSpec.defaultWallpaper.output.height)
+        let samplePoint = SIMD3<Float>(0, SceneSpec.defaultWallpaper.grid.y, -6)
+
+        let pitchedProjection = MatrixMath.projectToNormalizedDeviceCoordinates(
+            point: samplePoint,
+            camera: pitchedCamera,
+            aspectRatio: aspectRatio
+        )
+        let neutralProjection = MatrixMath.projectToNormalizedDeviceCoordinates(
+            point: samplePoint,
+            camera: neutralCamera,
+            aspectRatio: aspectRatio
+        )
+
+        XCTAssertNotNil(pitchedProjection)
+        XCTAssertNotNil(neutralProjection)
+        XCTAssertNotEqual(pitchedProjection!.y, neutralProjection!.y, accuracy: 0.0001)
     }
 }

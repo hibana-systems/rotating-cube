@@ -457,18 +457,10 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
         camera: CameraSettings
     ) -> simd_float4x4 {
         let aspectRatio = Float(max(size.width / max(size.height, 1), 0.0001))
-        let projection = MatrixMath.perspective(
-            fieldOfViewDegrees: camera.fieldOfViewDegrees,
-            aspectRatio: aspectRatio,
-            nearPlane: camera.nearPlane,
-            farPlane: camera.farPlane
+        return MatrixMath.viewProjectionMatrix(
+            camera: camera,
+            aspectRatio: aspectRatio
         )
-        let view = MatrixMath.lookAt(
-            eye: camera.position,
-            target: camera.target,
-            up: camera.upVector
-        )
-        return projection * view
     }
 
     private static func makeLinePipeline(
