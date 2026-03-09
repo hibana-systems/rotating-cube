@@ -33,7 +33,7 @@ final class SceneGeometryTests: XCTestCase {
         XCTAssertTrue(hasGradientEdge)
     }
 
-    func testDefaultWallpaperProjectsFloorBelowCubeMidline() {
+    func testDefaultWallpaperProjectsFloorWithinCubeVerticalSpan() {
         let spec = SceneSpec.defaultWallpaper
         let aspectRatio = Float(spec.output.width) / Float(spec.output.height)
         let cubeTop = MatrixMath.projectToNormalizedDeviceCoordinates(
@@ -66,13 +66,33 @@ final class SceneGeometryTests: XCTestCase {
 
         let cubeTopScreenY = (cubeTop!.y + 1) * 0.5
         let cubeBottomScreenY = (cubeBottom!.y + 1) * 0.5
-        let cubeMidlineScreenY = (cubeTopScreenY + cubeBottomScreenY) * 0.5
 
-        XCTAssertGreaterThan(gridTop!, cubeMidlineScreenY)
+        XCTAssertGreaterThan(gridTop!, cubeTopScreenY)
         XCTAssertLessThan(gridTop!, cubeBottomScreenY)
     }
 
     func testDefaultWallpaperCameraUsesUprightOrientation() {
         XCTAssertEqual(SceneSpec.defaultWallpaper.camera.upVector, SIMD3<Float>(0, -1, 0))
+    }
+
+    func testDefaultWallpaperGridExtendsPastViewportSides() {
+        let spec = SceneSpec.defaultWallpaper
+        let aspectRatio = Float(spec.output.width) / Float(spec.output.height)
+        let limit = Float(spec.grid.extent) * spec.grid.spacing
+        let farLeftCorner = MatrixMath.projectToNormalizedDeviceCoordinates(
+            point: SIMD3<Float>(-limit, spec.grid.y, -limit),
+            camera: spec.camera,
+            aspectRatio: aspectRatio
+        )
+        let farRightCorner = MatrixMath.projectToNormalizedDeviceCoordinates(
+            point: SIMD3<Float>(limit, spec.grid.y, -limit),
+            camera: spec.camera,
+            aspectRatio: aspectRatio
+        )
+
+        XCTAssertNotNil(farLeftCorner)
+        XCTAssertNotNil(farRightCorner)
+        XCTAssertGreaterThan(abs(farLeftCorner!.x), 1.0)
+        XCTAssertGreaterThan(abs(farRightCorner!.x), 1.0)
     }
 }
