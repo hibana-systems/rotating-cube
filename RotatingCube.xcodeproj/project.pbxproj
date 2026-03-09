@@ -16,6 +16,7 @@
 		24B9B1D2583221920C0FE6F6 /* RotatingCubeVideoExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE43335FBC0B0B44710DBB0 /* RotatingCubeVideoExporter.swift */; };
 		256429E32349A7B1F8D6E10A /* MetalShaderTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52997FE45D8A4A66DCD0FB44 /* MetalShaderTypes.swift */; };
 		2614F2891C9B49AD3E5B3E3C /* MatrixMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1A2C251224551EBCBC019 /* MatrixMath.swift */; };
+		2FE6E5202A541EBFDCA4552C /* CRTSampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFC7BC8FB06A3258A45390 /* CRTSampling.swift */; };
 		31E56F2C1AC3BC7415ECA859 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FEE14E997E1351FC7564E7 /* CoreMedia.framework */; };
 		32CC68C6133624EA68A8CBCB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C95B5DC18E534B1FC76DFC5 /* Metal.framework */; };
 		336479E924E52CC49F70EBEF /* SceneSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03F2C5B97F5F8A65CB09BE /* SceneSpec.swift */; };
@@ -30,6 +31,7 @@
 		4FD25B4A994D1A2B0A433AB1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EBCD2739D12BB5B6DDE717 /* AVFoundation.framework */; };
 		6164AE7F0C34FF4949E87D35 /* SceneGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D04867F85649B6DE1B3CB30 /* SceneGeometry.swift */; };
 		627C06E1AE432223218BB99D /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */; };
+		6352B2AAA5314A3C382C18D6 /* CRTSamplingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34F7D5838534C3FB718FC5B /* CRTSamplingTests.swift */; };
 		6B07A2BE8A1FE4833CF0AB2A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
 		6C3544CC3F790547819B952D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B26FACD4EB3ECD38F85BA3 /* QuartzCore.framework */; };
 		74D23608DFFBC2A3383DC21E /* RotatingCubeShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */; };
@@ -107,10 +109,12 @@
 		9B2B571259677A21A9E0DB09 /* RotatingCubeMetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeMetalRenderer.swift; sourceTree = "<group>"; };
 		AB73D3A68D594ED4A4BAA0C7 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		B017AD5A2961929AD19A4B6D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		B34F7D5838534C3FB718FC5B /* CRTSamplingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRTSamplingTests.swift; sourceTree = "<group>"; };
 		B5D03996805B6E77FE6CE16A /* RotatingCubeCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RotatingCubeCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EF87185F3A0B8D4E515AD9 /* RendererTimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererTimelineTests.swift; sourceTree = "<group>"; };
 		CFD7BD6D8DD8DE99F82CC58C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E20C8A663F997A45E248137F /* MetalPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalPreviewView.swift; sourceTree = "<group>"; };
+		E3AFC7BC8FB06A3258A45390 /* CRTSampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRTSampling.swift; sourceTree = "<group>"; };
 		EFF9BB0DF10896C42014E8D9 /* RotatingCubeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatingCubeApp.swift; sourceTree = "<group>"; };
 		F04F43E31BC7AA90341E4224 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FC1A13E52443B6F2353F4247 /* RotatingCubeShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RotatingCubeShaders.metal; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 		51CB8E10CA5842B3535E9788 /* RotatingCubeCoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				B34F7D5838534C3FB718FC5B /* CRTSamplingTests.swift */,
 				C1EF87185F3A0B8D4E515AD9 /* RendererTimelineTests.swift */,
 				81186F7502CBFAF084E5B8E5 /* SceneGeometryTests.swift */,
 			);
@@ -263,6 +268,7 @@
 		EEB40A982950194B0AE84812 /* RotatingCubeCore */ = {
 			isa = PBXGroup;
 			children = (
+				E3AFC7BC8FB06A3258A45390 /* CRTSampling.swift */,
 				82D1A2C251224551EBCBC019 /* MatrixMath.swift */,
 				52997FE45D8A4A66DCD0FB44 /* MetalShaderTypes.swift */,
 				37FC19C721DC0CF115557F6D /* RendererTimeline.swift */,
@@ -479,6 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6352B2AAA5314A3C382C18D6 /* CRTSamplingTests.swift in Sources */,
 				3708533FA6A3B16A787DE9F3 /* RendererTimelineTests.swift in Sources */,
 				76C4D5E1CCE51EB1A51ADCF9 /* SceneGeometryTests.swift in Sources */,
 			);
@@ -488,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FE6E5202A541EBFDCA4552C /* CRTSampling.swift in Sources */,
 				2614F2891C9B49AD3E5B3E3C /* MatrixMath.swift in Sources */,
 				256429E32349A7B1F8D6E10A /* MetalShaderTypes.swift in Sources */,
 				9B7063C85493DC986F628D95 /* RendererTimeline.swift in Sources */,

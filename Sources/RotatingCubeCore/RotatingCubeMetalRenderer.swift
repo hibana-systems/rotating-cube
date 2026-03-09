@@ -331,6 +331,9 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
             vignetteIntensity: sceneSpec.crt.vignetteIntensity,
             barrelDistortion: sceneSpec.crt.barrelDistortion,
             cornerPinch: sceneSpec.crt.cornerPinch,
+            edgeFillMode: sceneSpec.crt.edgeFillMode == .crop ? 0.0 : 1.0,
+            overscanScaleX: sceneSpec.crt.overscanScaleX,
+            overscanScaleY: sceneSpec.crt.overscanScaleY,
             time: Float(sampledTime)
         )
         encodeFullscreenPass(

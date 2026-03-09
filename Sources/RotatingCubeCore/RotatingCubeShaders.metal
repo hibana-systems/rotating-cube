@@ -43,6 +43,9 @@ struct GPUCompositeUniforms {
     float vignetteIntensity;
     float barrelDistortion;
     float cornerPinch;
+    float edgeFillMode;
+    float overscanScaleX;
+    float overscanScaleY;
     float time;
 };
 
@@ -172,8 +175,15 @@ fragment float4 crtCompositeFragment(
     constant GPUCompositeUniforms &uniforms [[buffer(0)]]
 ) {
     float2 centered = in.uv * 2.0 - 1.0;
+    bool cropMode = uniforms.edgeFillMode < 0.5;
+    float2 overscannedCentered = cropMode
+        ? float2(
+            centered.x / max(uniforms.overscanScaleX, 0.0001),
+            centered.y / max(uniforms.overscanScaleY, 0.0001)
+        )
+        : centered;
     float aspect = max(uniforms.resolution.x / max(uniforms.resolution.y, 1.0), 0.0001);
-    float2 aspectCentered = float2(centered.x * aspect, centered.y);
+    float2 aspectCentered = float2(overscannedCentered.x * aspect, overscannedCentered.y);
     float radiusSquared = dot(aspectCentered, aspectCentered);
     float radialWarp = 1.0 + uniforms.barrelDistortion * radiusSquared;
     float cornerWeight = smoothstep(0.15, 1.0, radiusSquared);
@@ -186,10 +196,7 @@ fragment float4 crtCompositeFragment(
 
     float2 warped = float2(aspectCentered.x / aspect, aspectCentered.y);
     float2 sampleUV = warped * 0.5 + 0.5;
-
-    if (any(sampleUV < 0.0) || any(sampleUV > 1.0)) {
-        return float4(0.0, 0.0, 0.0, 1.0);
-    }
+    sampleUV = clamp(sampleUV, 0.0, 1.0);
 
     float3 sceneColor = sceneTexture.sample(linearSampler, sampleUV).rgb;
     float3 bloomColor = bloomTexture.sample(linearSampler, sampleUV).rgb * uniforms.bloomIntensity;

@@ -89,6 +89,9 @@ public struct GPUCompositeUniforms {
     public var vignetteIntensity: Float
     public var barrelDistortion: Float
     public var cornerPinch: Float
+    public var edgeFillMode: Float
+    public var overscanScaleX: Float
+    public var overscanScaleY: Float
     public var time: Float
 
     public init(
@@ -100,6 +103,9 @@ public struct GPUCompositeUniforms {
         vignetteIntensity: Float,
         barrelDistortion: Float,
         cornerPinch: Float,
+        edgeFillMode: Float,
+        overscanScaleX: Float,
+        overscanScaleY: Float,
         time: Float
     ) {
         self.resolution = resolution
@@ -110,6 +116,9 @@ public struct GPUCompositeUniforms {
         self.vignetteIntensity = vignetteIntensity
         self.barrelDistortion = barrelDistortion
         self.cornerPinch = cornerPinch
+        self.edgeFillMode = edgeFillMode
+        self.overscanScaleX = overscanScaleX
+        self.overscanScaleY = overscanScaleY
         self.time = time
     }
 }
