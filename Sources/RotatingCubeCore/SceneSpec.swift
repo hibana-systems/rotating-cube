@@ -110,6 +110,7 @@ public struct CameraSettings: Sendable, Equatable {
     public var target: SIMD3<Float>
     public var upVector: SIMD3<Float>
     public var fieldOfViewDegrees: Float
+    public var pitchDegrees: Float
     public var nearPlane: Float
     public var farPlane: Float
 
@@ -118,6 +119,7 @@ public struct CameraSettings: Sendable, Equatable {
         target: SIMD3<Float>,
         upVector: SIMD3<Float>,
         fieldOfViewDegrees: Float,
+        pitchDegrees: Float,
         nearPlane: Float,
         farPlane: Float
     ) {
@@ -125,6 +127,7 @@ public struct CameraSettings: Sendable, Equatable {
         self.target = target
         self.upVector = upVector
         self.fieldOfViewDegrees = fieldOfViewDegrees
+        self.pitchDegrees = pitchDegrees
         self.nearPlane = nearPlane
         self.farPlane = farPlane
     }
@@ -252,6 +255,17 @@ public struct SceneSpec: Sendable, Equatable {
         self.output = output
     }
 
+    // Baseline camera for resetting perspective tweaks back to the current approved framing.
+    public static let baselineWallpaperCamera = CameraSettings(
+        position: SIMD3<Float>(0, 4.14, 13.0),
+        target: SIMD3<Float>(0, 1.3, 0),
+        upVector: SIMD3<Float>(0, -1, 0),
+        fieldOfViewDegrees: 36,
+        pitchDegrees: 0,
+        nearPlane: 0.1,
+        farPlane: 120
+    )
+
     public static let defaultWallpaper = SceneSpec(
         palette: ScenePalette(
             cubeCornerColors: [
@@ -293,14 +307,7 @@ public struct SceneSpec: Sendable, Equatable {
                 glowOpacity: 0.08
             )
         ),
-        camera: CameraSettings(
-            position: SIMD3<Float>(0, 4.6, 13.0),
-            target: SIMD3<Float>(0, 1.3, 0),
-            upVector: SIMD3<Float>(0, -1, 0),
-            fieldOfViewDegrees: 36,
-            nearPlane: 0.1,
-            farPlane: 120
-        ),
+        camera: baselineWallpaperCamera,
         loop: LoopSettings(
             durationSeconds: 30,
             simulationFPS: 30,
