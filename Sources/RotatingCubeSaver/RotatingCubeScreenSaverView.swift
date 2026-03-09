@@ -8,7 +8,7 @@ final class RotatingCubeScreenSaverView: ScreenSaverView {
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        animationTimeInterval = 1.0 / 60.0
+        animationTimeInterval = 1.0 / Double(SceneSpec.defaultWallpaper.loop.outputFPS)
         wantsLayer = true
         layer?.backgroundColor = NSColor.black.cgColor
         setupMetalView()

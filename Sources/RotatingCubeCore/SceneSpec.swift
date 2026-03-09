@@ -108,6 +108,7 @@ public struct GridSettings: Sendable, Equatable {
 public struct CameraSettings: Sendable, Equatable {
     public var position: SIMD3<Float>
     public var target: SIMD3<Float>
+    public var upVector: SIMD3<Float>
     public var fieldOfViewDegrees: Float
     public var nearPlane: Float
     public var farPlane: Float
@@ -115,12 +116,14 @@ public struct CameraSettings: Sendable, Equatable {
     public init(
         position: SIMD3<Float>,
         target: SIMD3<Float>,
+        upVector: SIMD3<Float>,
         fieldOfViewDegrees: Float,
         nearPlane: Float,
         farPlane: Float
     ) {
         self.position = position
         self.target = target
+        self.upVector = upVector
         self.fieldOfViewDegrees = fieldOfViewDegrees
         self.nearPlane = nearPlane
         self.farPlane = farPlane
@@ -291,16 +294,17 @@ public struct SceneSpec: Sendable, Equatable {
             )
         ),
         camera: CameraSettings(
-            position: SIMD3<Float>(0, 4.8, 11.8),
-            target: SIMD3<Float>(0, 2.1, 0),
-            fieldOfViewDegrees: 34,
+            position: SIMD3<Float>(0, 4.6, 13.0),
+            target: SIMD3<Float>(0, 1.3, 0),
+            upVector: SIMD3<Float>(0, -1, 0),
+            fieldOfViewDegrees: 36,
             nearPlane: 0.1,
             farPlane: 120
         ),
         loop: LoopSettings(
             durationSeconds: 30,
-            simulationFPS: 20,
-            outputFPS: 60
+            simulationFPS: 24,
+            outputFPS: 24
         ),
         antiAliasing: AntiAliasingSettings(
             isEnabled: true,

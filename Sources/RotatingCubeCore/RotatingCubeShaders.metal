@@ -186,7 +186,6 @@ fragment float4 crtCompositeFragment(
 
     float2 warped = float2(aspectCentered.x / aspect, aspectCentered.y);
     float2 sampleUV = warped * 0.5 + 0.5;
-    sampleUV = 1.0 - sampleUV;
 
     if (any(sampleUV < 0.0) || any(sampleUV > 1.0)) {
         return float4(0.0, 0.0, 0.0, 1.0);
