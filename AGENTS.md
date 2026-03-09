@@ -33,7 +33,7 @@ These are the current reset values. Treat them as the visual baseline unless the
 
 - Cube
   - `size = 3.2`
-  - `center = (0, 1.8, 0)`
+  - `center = (0, 1.98, 0)`
   - `xTiltDegrees = 30`
   - `initialYawDegrees = 45`
   - `xRevolutionsPerLoop = 1`
@@ -59,12 +59,12 @@ These are the current reset values. Treat them as the visual baseline unless the
   - `h264`
   - `30_000_000` average bitrate
 - CRT / post
-  - CRT effects are currently effectively disabled.
+  - CRT effects are lightly enabled for baseline distressing.
   - `bloomIntensity = 0.0`
   - `scanlineIntensity = 0.0`
   - `phosphorMaskIntensity = 0.0`
   - `vignetteIntensity = 0.0`
-  - `barrelDistortion = 0.0`
+  - `barrelDistortion = 0.035`
   - `cornerPinch = 0.0`
 
 ## Camera Reset

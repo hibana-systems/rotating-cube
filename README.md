@@ -22,7 +22,7 @@ This is the current approved baseline for future tweaks.
 ### Cube
 
 - `size = 3.2`
-- `center = (0, 1.8, 0)`
+- `center = (0, 1.98, 0)`
 - `xTiltDegrees = 30`
 - `initialYawDegrees = 45`
 - `xRevolutionsPerLoop = 1`
@@ -59,13 +59,13 @@ This is the current approved baseline for future tweaks.
 
 ### CRT / Post
 
-The CRT stack exists in the renderer, but the current baseline keeps it effectively off:
+The CRT stack exists in the renderer, and the current baseline uses only a subtle barrel warp:
 
 - `bloomIntensity = 0.0`
 - `scanlineIntensity = 0.0`
 - `phosphorMaskIntensity = 0.0`
 - `vignetteIntensity = 0.0`
-- `barrelDistortion = 0.0`
+- `barrelDistortion = 0.035`
 - `cornerPinch = 0.0`
 
 ## Camera Reset
