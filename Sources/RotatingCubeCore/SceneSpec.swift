@@ -283,7 +283,7 @@ public struct SceneSpec: Sendable, Equatable {
             yRevolutionsPerLoop: 2
         ),
         grid: GridSettings(
-            extent: 14,
+            extent: 26,
             spacing: 0.72,
             y: -1.4,
             lineStyle: LineStyle(
