@@ -36,7 +36,6 @@ This is the current approved baseline for future tweaks.
 
 ### Camera
 
-- `position = (0, 4.6, 13.0)`
 - `position = (0, 4.14, 13.0)`
 - `target = (0, 1.3, 0)`
 - `upVector = (0, -1, 0)`
@@ -59,14 +58,20 @@ This is the current approved baseline for future tweaks.
 
 ### CRT / Post
 
-The CRT stack exists in the renderer, and the current baseline uses only a subtle barrel warp:
+The CRT stack exists in the renderer, and the current baseline uses restrained bloom, scanlines, and overscanned barrel warp:
 
-- `bloomIntensity = 0.0`
-- `scanlineIntensity = 0.0`
+- `bloomThreshold = 0.68`
+- `bloomIntensity = 0.10`
+- `bloomRadius = 1.5`
+- `scanlineIntensity = 0.12`
+- `scanlineDensity = 1.0`
 - `phosphorMaskIntensity = 0.0`
-- `vignetteIntensity = 0.0`
+- `vignetteIntensity = 0.08`
 - `barrelDistortion = 0.035`
 - `cornerPinch = 0.0`
+- `edgeFillMode = crop`
+- `overscanScaleX = 1.12`
+- `overscanScaleY = 1.04`
 
 ## Camera Reset
 
@@ -209,6 +214,13 @@ Change:
 - `grid.extent`
 
 This is the main control for keeping the side edges offscreen on wider displays.
+
+If CRT barrel distortion creates black side gutters, change:
+
+- `crt.overscanScaleX`
+- `crt.overscanScaleY`
+
+before changing camera or grid geometry.
 
 ### If the floor is physically too high or too low
 

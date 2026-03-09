@@ -172,6 +172,11 @@ public struct AntiAliasingSettings: Sendable, Equatable {
     }
 }
 
+public enum CRTEdgeFillMode: String, Sendable, Equatable {
+    case crop
+    case stretch
+}
+
 public struct CRTSettings: Sendable, Equatable {
     public var bloomThreshold: Float
     public var bloomIntensity: Float
@@ -182,6 +187,9 @@ public struct CRTSettings: Sendable, Equatable {
     public var vignetteIntensity: Float
     public var barrelDistortion: Float
     public var cornerPinch: Float
+    public var edgeFillMode: CRTEdgeFillMode
+    public var overscanScaleX: Float
+    public var overscanScaleY: Float
 
     public init(
         bloomThreshold: Float,
@@ -192,7 +200,10 @@ public struct CRTSettings: Sendable, Equatable {
         phosphorMaskIntensity: Float,
         vignetteIntensity: Float,
         barrelDistortion: Float,
-        cornerPinch: Float
+        cornerPinch: Float,
+        edgeFillMode: CRTEdgeFillMode,
+        overscanScaleX: Float,
+        overscanScaleY: Float
     ) {
         self.bloomThreshold = bloomThreshold
         self.bloomIntensity = bloomIntensity
@@ -203,6 +214,9 @@ public struct CRTSettings: Sendable, Equatable {
         self.vignetteIntensity = vignetteIntensity
         self.barrelDistortion = barrelDistortion
         self.cornerPinch = cornerPinch
+        self.edgeFillMode = edgeFillMode
+        self.overscanScaleX = overscanScaleX
+        self.overscanScaleY = overscanScaleY
     }
 }
 
@@ -286,8 +300,8 @@ public struct SceneSpec: Sendable, Equatable {
             size: 3.2,
             center: SIMD3<Float>(0, 1.98, 0),
             lineStyle: LineStyle(
-                coreWidthPixels: 3.0,
-                glowWidthPixels: 5.4,
+                coreWidthPixels: 3.6,
+                glowWidthPixels: 6.48,
                 coreOpacity: 0.98,
                 glowOpacity: 0.18
             ),
@@ -301,8 +315,8 @@ public struct SceneSpec: Sendable, Equatable {
             spacing: 0.72,
             y: -1.4,
             lineStyle: LineStyle(
-                coreWidthPixels: 1.7,
-                glowWidthPixels: 2.7,
+                coreWidthPixels: 2.04,
+                glowWidthPixels: 3.24,
                 coreOpacity: 0.72,
                 glowOpacity: 0.08
             )
@@ -319,15 +333,18 @@ public struct SceneSpec: Sendable, Equatable {
             edgeSoftness: 1.0
         ),
         crt: CRTSettings(
-            bloomThreshold: 0.42,
-            bloomIntensity: 0.0,
-            bloomRadius: 1.8,
-            scanlineIntensity: 0.0,
+            bloomThreshold: 0.68,
+            bloomIntensity: 0.10,
+            bloomRadius: 1.5,
+            scanlineIntensity: 0.12,
             scanlineDensity: 1.0,
             phosphorMaskIntensity: 0.0,
-            vignetteIntensity: 0.0,
+            vignetteIntensity: 0.08,
             barrelDistortion: 0.035,
-            cornerPinch: 0.0
+            cornerPinch: 0.0,
+            edgeFillMode: .crop,
+            overscanScaleX: 1.12,
+            overscanScaleY: 1.04
         ),
         output: OutputSettings(
             width: 3840,

@@ -46,8 +46,8 @@ These are the current reset values. Treat them as the visual baseline unless the
   - `position = (0, 4.14, 13.0)`
   - `target = (0, 1.3, 0)`
   - `upVector = (0, -1, 0)`
-- `fieldOfViewDegrees = 36`
-- `pitchDegrees = 0`
+  - `fieldOfViewDegrees = 36`
+  - `pitchDegrees = 0`
   - `nearPlane = 0.1`
   - `farPlane = 120`
 - Timing
@@ -60,12 +60,18 @@ These are the current reset values. Treat them as the visual baseline unless the
   - `30_000_000` average bitrate
 - CRT / post
   - CRT effects are lightly enabled for baseline distressing.
-  - `bloomIntensity = 0.0`
-  - `scanlineIntensity = 0.0`
+  - `bloomThreshold = 0.68`
+  - `bloomIntensity = 0.10`
+  - `bloomRadius = 1.5`
+  - `scanlineIntensity = 0.12`
+  - `scanlineDensity = 1.0`
   - `phosphorMaskIntensity = 0.0`
-  - `vignetteIntensity = 0.0`
+  - `vignetteIntensity = 0.08`
   - `barrelDistortion = 0.035`
   - `cornerPinch = 0.0`
+  - `edgeFillMode = crop`
+  - `overscanScaleX = 1.12`
+  - `overscanScaleY = 1.04`
 
 ## Camera Reset
 
@@ -107,6 +113,7 @@ Prefer changing the camera before touching geometry:
   - use this only for actual floor height changes
 - Avoid using `grid.spacing` as the first knob for perspective work
   - it changes the style/density of the grid, not just its footprint
+- If barrel distortion creates black edge gutters, adjust `crt.overscanScaleX` and `crt.overscanScaleY` before changing camera or grid geometry
 
 ## Important Constraints
 
