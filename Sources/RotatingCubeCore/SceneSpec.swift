@@ -24,17 +24,42 @@ public struct LineStyle: Sendable, Equatable {
     public var glowWidthPixels: Float
     public var coreOpacity: Float
     public var glowOpacity: Float
+    public var coreIntensity: Float
+    public var glowIntensity: Float
 
     public init(
         coreWidthPixels: Float,
         glowWidthPixels: Float,
         coreOpacity: Float,
-        glowOpacity: Float
+        glowOpacity: Float,
+        coreIntensity: Float,
+        glowIntensity: Float
     ) {
         self.coreWidthPixels = coreWidthPixels
         self.glowWidthPixels = glowWidthPixels
         self.coreOpacity = coreOpacity
         self.glowOpacity = glowOpacity
+        self.coreIntensity = coreIntensity
+        self.glowIntensity = glowIntensity
+    }
+}
+
+public struct CubeDepthHierarchySettings: Sendable, Equatable {
+    public var nearCoreScale: Float
+    public var farCoreScale: Float
+    public var nearGlowScale: Float
+    public var farGlowScale: Float
+
+    public init(
+        nearCoreScale: Float,
+        farCoreScale: Float,
+        nearGlowScale: Float,
+        farGlowScale: Float
+    ) {
+        self.nearCoreScale = nearCoreScale
+        self.farCoreScale = farCoreScale
+        self.nearGlowScale = nearGlowScale
+        self.farGlowScale = farGlowScale
     }
 }
 
@@ -62,6 +87,7 @@ public struct CubeSettings: Sendable, Equatable {
     public var size: Float
     public var center: SIMD3<Float>
     public var lineStyle: LineStyle
+    public var depthHierarchy: CubeDepthHierarchySettings
     public var xTiltDegrees: Float
     public var initialYawDegrees: Float
     public var xRevolutionsPerLoop: Int
@@ -71,6 +97,7 @@ public struct CubeSettings: Sendable, Equatable {
         size: Float,
         center: SIMD3<Float>,
         lineStyle: LineStyle,
+        depthHierarchy: CubeDepthHierarchySettings,
         xTiltDegrees: Float,
         initialYawDegrees: Float,
         xRevolutionsPerLoop: Int,
@@ -79,10 +106,30 @@ public struct CubeSettings: Sendable, Equatable {
         self.size = size
         self.center = center
         self.lineStyle = lineStyle
+        self.depthHierarchy = depthHierarchy
         self.xTiltDegrees = xTiltDegrees
         self.initialYawDegrees = initialYawDegrees
         self.xRevolutionsPerLoop = xRevolutionsPerLoop
         self.yRevolutionsPerLoop = yRevolutionsPerLoop
+    }
+}
+
+public struct GridDistanceFalloffSettings: Sendable, Equatable {
+    public var startDepth: Float
+    public var endDepth: Float
+    public var minimumCoreScale: Float
+    public var minimumGlowScale: Float
+
+    public init(
+        startDepth: Float,
+        endDepth: Float,
+        minimumCoreScale: Float,
+        minimumGlowScale: Float
+    ) {
+        self.startDepth = startDepth
+        self.endDepth = endDepth
+        self.minimumCoreScale = minimumCoreScale
+        self.minimumGlowScale = minimumGlowScale
     }
 }
 
@@ -91,17 +138,20 @@ public struct GridSettings: Sendable, Equatable {
     public var spacing: Float
     public var y: Float
     public var lineStyle: LineStyle
+    public var distanceFalloff: GridDistanceFalloffSettings
 
     public init(
         extent: Int,
         spacing: Float,
         y: Float,
-        lineStyle: LineStyle
+        lineStyle: LineStyle,
+        distanceFalloff: GridDistanceFalloffSettings
     ) {
         self.extent = extent
         self.spacing = spacing
         self.y = y
         self.lineStyle = lineStyle
+        self.distanceFalloff = distanceFalloff
     }
 }
 
@@ -300,10 +350,18 @@ public struct SceneSpec: Sendable, Equatable {
             size: 3.2,
             center: SIMD3<Float>(0, 1.98, 0),
             lineStyle: LineStyle(
-                coreWidthPixels: 3.6,
-                glowWidthPixels: 6.48,
-                coreOpacity: 0.98,
-                glowOpacity: 0.18
+                coreWidthPixels: 4.6,
+                glowWidthPixels: 18.0,
+                coreOpacity: 1.0,
+                glowOpacity: 0.40,
+                coreIntensity: 1.40,
+                glowIntensity: 2.50
+            ),
+            depthHierarchy: CubeDepthHierarchySettings(
+                nearCoreScale: 1.15,
+                farCoreScale: 0.78,
+                nearGlowScale: 1.40,
+                farGlowScale: 0.60
             ),
             xTiltDegrees: 30,
             initialYawDegrees: 45,
@@ -315,10 +373,18 @@ public struct SceneSpec: Sendable, Equatable {
             spacing: 0.72,
             y: -1.4,
             lineStyle: LineStyle(
-                coreWidthPixels: 2.04,
-                glowWidthPixels: 3.24,
-                coreOpacity: 0.72,
-                glowOpacity: 0.08
+                coreWidthPixels: 3.4,
+                glowWidthPixels: 5.2,
+                coreOpacity: 0.58,
+                glowOpacity: 0.06,
+                coreIntensity: 0.80,
+                glowIntensity: 1.00
+            ),
+            distanceFalloff: GridDistanceFalloffSettings(
+                startDepth: 14.0,
+                endDepth: 34.0,
+                minimumCoreScale: 0.35,
+                minimumGlowScale: 0.20
             )
         ),
         camera: baselineWallpaperCamera,
@@ -333,12 +399,12 @@ public struct SceneSpec: Sendable, Equatable {
             edgeSoftness: 1.0
         ),
         crt: CRTSettings(
-            bloomThreshold: 0.68,
-            bloomIntensity: 0.10,
-            bloomRadius: 1.5,
-            scanlineIntensity: 0.12,
+            bloomThreshold: 0.56,
+            bloomIntensity: 0.26,
+            bloomRadius: 2.4,
+            scanlineIntensity: 0.28,
             scanlineDensity: 1.0,
-            phosphorMaskIntensity: 0.0,
+            phosphorMaskIntensity: 0.04,
             vignetteIntensity: 0.08,
             barrelDistortion: 0.035,
             cornerPinch: 0.0,

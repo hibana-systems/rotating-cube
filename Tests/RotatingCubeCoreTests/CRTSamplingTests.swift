@@ -54,4 +54,34 @@ final class CRTSamplingTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(resolvedSample.y, 0.0)
         XCTAssertLessThanOrEqual(resolvedSample.y, 1.0)
     }
+
+    func testBlurOffsetsScaleLinearlyWithRadius() {
+        let texelSize = SIMD2<Float>(0.5, 0.25)
+        let unitOffsets = BloomSampling.blurOffsets(
+            direction: SIMD2<Float>(1, 0),
+            texelSize: texelSize,
+            radius: 1.0
+        )
+        let wideOffsets = BloomSampling.blurOffsets(
+            direction: SIMD2<Float>(1, 0),
+            texelSize: texelSize,
+            radius: 2.4
+        )
+
+        XCTAssertEqual(unitOffsets.count, BloomSampling.blurTapCount)
+        XCTAssertEqual(wideOffsets.count, BloomSampling.blurTapCount)
+        XCTAssertEqual(wideOffsets[0].x, unitOffsets[0].x * 2.4, accuracy: 0.0001)
+        XCTAssertEqual(wideOffsets[3].x, unitOffsets[3].x * 2.4, accuracy: 0.0001)
+        XCTAssertEqual(wideOffsets[0].y, 0, accuracy: 0.0001)
+    }
+
+    func testBlurOffsetsClampNegativeRadiusToZero() {
+        let offsets = BloomSampling.blurOffsets(
+            direction: SIMD2<Float>(0, 2),
+            texelSize: SIMD2<Float>(0.5, 0.25),
+            radius: -3.0
+        )
+
+        XCTAssertEqual(offsets, Array(repeating: SIMD2<Float>(repeating: 0), count: BloomSampling.blurTapCount))
+    }
 }

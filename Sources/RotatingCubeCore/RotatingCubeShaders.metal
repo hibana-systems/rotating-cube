@@ -30,8 +30,10 @@ struct GPUBrightPassUniforms {
 };
 
 struct GPUBlurUniforms {
-    float2 direction;
-    float2 sourceTexelSize;
+    float2 sampleOffset1;
+    float2 sampleOffset2;
+    float2 sampleOffset3;
+    float2 sampleOffset4;
 };
 
 struct GPUCompositeUniforms {
@@ -155,11 +157,17 @@ fragment float4 gaussianBlurFragment(
     constant GPUBlurUniforms &uniforms [[buffer(0)]]
 ) {
     constexpr float weights[5] = { 0.227027f, 0.1945946f, 0.1216216f, 0.054054f, 0.016216f };
+    float2 sampleOffsets[4] = {
+        uniforms.sampleOffset1,
+        uniforms.sampleOffset2,
+        uniforms.sampleOffset3,
+        uniforms.sampleOffset4
+    };
 
     float3 color = sourceTexture.sample(linearSampler, in.uv).rgb * weights[0];
 
     for (uint index = 1; index < 5; ++index) {
-        float2 offset = uniforms.direction * uniforms.sourceTexelSize * float(index);
+        float2 offset = sampleOffsets[index - 1];
         color += sourceTexture.sample(linearSampler, in.uv + offset).rgb * weights[index];
         color += sourceTexture.sample(linearSampler, in.uv - offset).rgb * weights[index];
     }

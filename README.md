@@ -23,6 +23,16 @@ This is the current approved baseline for future tweaks.
 
 - `size = 3.2`
 - `center = (0, 1.98, 0)`
+- `lineStyle.coreWidthPixels = 4.6`
+- `lineStyle.glowWidthPixels = 18.0`
+- `lineStyle.coreOpacity = 1.0`
+- `lineStyle.glowOpacity = 0.40`
+- `lineStyle.coreIntensity = 1.40`
+- `lineStyle.glowIntensity = 2.50`
+- `depthHierarchy.nearCoreScale = 1.15`
+- `depthHierarchy.farCoreScale = 0.78`
+- `depthHierarchy.nearGlowScale = 1.40`
+- `depthHierarchy.farGlowScale = 0.60`
 - `xTiltDegrees = 30`
 - `initialYawDegrees = 45`
 - `xRevolutionsPerLoop = 1`
@@ -33,6 +43,16 @@ This is the current approved baseline for future tweaks.
 - `extent = 26`
 - `spacing = 0.72`
 - `y = -1.4`
+- `lineStyle.coreWidthPixels = 3.4`
+- `lineStyle.glowWidthPixels = 5.2`
+- `lineStyle.coreOpacity = 0.58`
+- `lineStyle.glowOpacity = 0.06`
+- `lineStyle.coreIntensity = 0.80`
+- `lineStyle.glowIntensity = 1.00`
+- `distanceFalloff.startDepth = 14.0`
+- `distanceFalloff.endDepth = 34.0`
+- `distanceFalloff.minimumCoreScale = 0.35`
+- `distanceFalloff.minimumGlowScale = 0.20`
 
 ### Camera
 
@@ -58,14 +78,14 @@ This is the current approved baseline for future tweaks.
 
 ### CRT / Post
 
-The CRT stack exists in the renderer, and the current baseline uses restrained bloom, scanlines, and overscanned barrel warp:
+The CRT stack exists in the renderer, and the current baseline uses a punchier menace-tuned bloom pass with restrained scanline and phosphor texture:
 
-- `bloomThreshold = 0.68`
-- `bloomIntensity = 0.10`
-- `bloomRadius = 1.5`
-- `scanlineIntensity = 0.12`
+- `bloomThreshold = 0.56`
+- `bloomIntensity = 0.26`
+- `bloomRadius = 2.4`
+- `scanlineIntensity = 0.28`
 - `scanlineDensity = 1.0`
-- `phosphorMaskIntensity = 0.0`
+- `phosphorMaskIntensity = 0.04`
 - `vignetteIntensity = 0.08`
 - `barrelDistortion = 0.035`
 - `cornerPinch = 0.0`

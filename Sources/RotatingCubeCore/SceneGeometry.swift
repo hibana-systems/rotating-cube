@@ -72,8 +72,14 @@ public enum SceneGeometryBuilder {
 
     public static func buildCube(spec: SceneSpec, time: Double) -> [LinePrimitive] {
         let state = cubeState(spec: spec, time: time)
+        let midpointDepths = cubeEdgeIndices.map { startIndex, endIndex in
+            let midpoint = (state.worldVertices[startIndex] + state.worldVertices[endIndex]) * 0.5
+            return forwardDepth(for: midpoint, camera: spec.camera)
+        }
+        let normalizedDepths = normalizedDepthWeights(for: midpointDepths)
 
-        return cubeEdgeIndices.map { startIndex, endIndex in
+        return cubeEdgeIndices.enumerated().map { index, edge in
+            let (startIndex, endIndex) = edge
             let startLocal = state.localVertices[startIndex]
             let endLocal = state.localVertices[endIndex]
             let startColor = spectralColor(
@@ -86,24 +92,46 @@ public enum SceneGeometryBuilder {
                 cubeSize: spec.cube.size,
                 palette: spec.palette.cubeCornerColors
             )
+            let coreScale: Float
+            let glowScale: Float
+
+            if let normalizedDepths {
+                coreScale = mix(
+                    spec.cube.depthHierarchy.farCoreScale,
+                    spec.cube.depthHierarchy.nearCoreScale,
+                    t: normalizedDepths[index]
+                )
+                glowScale = mix(
+                    spec.cube.depthHierarchy.farGlowScale,
+                    spec.cube.depthHierarchy.nearGlowScale,
+                    t: normalizedDepths[index]
+                )
+            } else {
+                coreScale = 1.0
+                glowScale = 1.0
+            }
 
             return LinePrimitive(
                 start: state.worldVertices[startIndex],
                 end: state.worldVertices[endIndex],
-                coreStartColor: applyOpacity(
+                coreStartColor: applyStyle(
                     startColor,
+                    intensity: spec.cube.lineStyle.coreIntensity * coreScale,
                     opacity: spec.cube.lineStyle.coreOpacity
                 ),
-                coreEndColor: applyOpacity(
+                coreEndColor: applyStyle(
                     endColor,
+                    intensity: spec.cube.lineStyle.coreIntensity * coreScale,
                     opacity: spec.cube.lineStyle.coreOpacity
                 ),
-                glowStartColor: applyOpacity(
+                glowStartColor: applyStyle(
                     glowColor(from: startColor),
+                    intensity: spec.cube.lineStyle.glowIntensity * glowScale,
                     opacity: spec.cube.lineStyle.glowOpacity
                 ),
-                glowEndColor: applyOpacity(
+                glowEndColor: applyStyle(
                     glowColor(from: endColor),
+                    intensity: spec.cube.lineStyle.glowIntensity * glowScale,
                     opacity: spec.cube.lineStyle.glowOpacity
                 ),
                 coreWidthPixels: spec.cube.lineStyle.coreWidthPixels,
@@ -117,50 +145,61 @@ public enum SceneGeometryBuilder {
         let gridGlow = spec.palette.gridGlow.simd
         let limit = Float(spec.grid.extent) * spec.grid.spacing
         let offsets = (-spec.grid.extent...spec.grid.extent).map { Float($0) * spec.grid.spacing }
+        let coreStyle = spec.grid.lineStyle
+        let glowStyle = spec.grid.lineStyle
 
-        return offsets.flatMap { offset in
-            [
+        func coreColor(at point: SIMD3<Float>) -> SIMD4<Float> {
+            let scale = gridDepthScale(
+                for: point,
+                camera: spec.camera,
+                falloff: spec.grid.distanceFalloff,
+                minimumScale: spec.grid.distanceFalloff.minimumCoreScale
+            )
+            return applyStyle(
+                gridColor,
+                intensity: coreStyle.coreIntensity * scale,
+                opacity: coreStyle.coreOpacity
+            )
+        }
+
+        func glowColor(at point: SIMD3<Float>) -> SIMD4<Float> {
+            let scale = gridDepthScale(
+                for: point,
+                camera: spec.camera,
+                falloff: spec.grid.distanceFalloff,
+                minimumScale: spec.grid.distanceFalloff.minimumGlowScale
+            )
+            return applyStyle(
+                gridGlow,
+                intensity: glowStyle.glowIntensity * scale,
+                opacity: glowStyle.glowOpacity
+            )
+        }
+
+        return offsets.flatMap { offset -> [LinePrimitive] in
+            let rowStart = SIMD3<Float>(-limit, spec.grid.y, offset)
+            let rowEnd = SIMD3<Float>(limit, spec.grid.y, offset)
+            let columnStart = SIMD3<Float>(offset, spec.grid.y, -limit)
+            let columnEnd = SIMD3<Float>(offset, spec.grid.y, limit)
+
+            return [
                 LinePrimitive(
-                    start: SIMD3<Float>(-limit, spec.grid.y, offset),
-                    end: SIMD3<Float>(limit, spec.grid.y, offset),
-                    coreStartColor: applyOpacity(
-                        gridColor,
-                        opacity: spec.grid.lineStyle.coreOpacity
-                    ),
-                    coreEndColor: applyOpacity(
-                        gridColor,
-                        opacity: spec.grid.lineStyle.coreOpacity
-                    ),
-                    glowStartColor: applyOpacity(
-                        gridGlow,
-                        opacity: spec.grid.lineStyle.glowOpacity
-                    ),
-                    glowEndColor: applyOpacity(
-                        gridGlow,
-                        opacity: spec.grid.lineStyle.glowOpacity
-                    ),
+                    start: rowStart,
+                    end: rowEnd,
+                    coreStartColor: coreColor(at: rowStart),
+                    coreEndColor: coreColor(at: rowEnd),
+                    glowStartColor: glowColor(at: rowStart),
+                    glowEndColor: glowColor(at: rowEnd),
                     coreWidthPixels: spec.grid.lineStyle.coreWidthPixels,
                     glowWidthPixels: spec.grid.lineStyle.glowWidthPixels
                 ),
                 LinePrimitive(
-                    start: SIMD3<Float>(offset, spec.grid.y, -limit),
-                    end: SIMD3<Float>(offset, spec.grid.y, limit),
-                    coreStartColor: applyOpacity(
-                        gridColor,
-                        opacity: spec.grid.lineStyle.coreOpacity
-                    ),
-                    coreEndColor: applyOpacity(
-                        gridColor,
-                        opacity: spec.grid.lineStyle.coreOpacity
-                    ),
-                    glowStartColor: applyOpacity(
-                        gridGlow,
-                        opacity: spec.grid.lineStyle.glowOpacity
-                    ),
-                    glowEndColor: applyOpacity(
-                        gridGlow,
-                        opacity: spec.grid.lineStyle.glowOpacity
-                    ),
+                    start: columnStart,
+                    end: columnEnd,
+                    coreStartColor: coreColor(at: columnStart),
+                    coreEndColor: coreColor(at: columnEnd),
+                    glowStartColor: glowColor(at: columnStart),
+                    glowEndColor: glowColor(at: columnEnd),
                     coreWidthPixels: spec.grid.lineStyle.coreWidthPixels,
                     glowWidthPixels: spec.grid.lineStyle.glowWidthPixels
                 ),
@@ -213,12 +252,82 @@ public enum SceneGeometryBuilder {
         )
     }
 
-    private static func applyOpacity(_ color: SIMD4<Float>, opacity: Float) -> SIMD4<Float> {
-        SIMD4<Float>(color.x, color.y, color.z, opacity)
+    static func normalizedDepthWeights(
+        for depths: [Float],
+        epsilon: Float = 0.0001
+    ) -> [Float]? {
+        guard
+            let minDepth = depths.min(),
+            let maxDepth = depths.max()
+        else {
+            return []
+        }
+
+        let range = maxDepth - minDepth
+        guard range > epsilon else {
+            return nil
+        }
+
+        return depths.map { depth in
+            1 - clamp((depth - minDepth) / range)
+        }
+    }
+
+    private static func gridDepthScale(
+        for point: SIMD3<Float>,
+        camera: CameraSettings,
+        falloff: GridDistanceFalloffSettings,
+        minimumScale: Float
+    ) -> Float {
+        let depth = max(forwardDepth(for: point, camera: camera), 0)
+        let fade = smoothstep(
+            edge0: falloff.startDepth,
+            edge1: falloff.endDepth,
+            x: depth
+        )
+        return mix(1.0, minimumScale, t: fade)
+    }
+
+    private static func forwardDepth(
+        for point: SIMD3<Float>,
+        camera: CameraSettings
+    ) -> Float {
+        simd_dot(point - camera.position, cameraForward(camera: camera))
+    }
+
+    private static func cameraForward(camera: CameraSettings) -> SIMD3<Float> {
+        let forward = MatrixMath.effectiveTarget(for: camera) - camera.position
+        let lengthSquared = simd_length_squared(forward)
+        guard lengthSquared > 0.0001 else {
+            return SIMD3<Float>(0, 0, -1)
+        }
+        return forward / sqrt(lengthSquared)
+    }
+
+    private static func applyStyle(
+        _ color: SIMD4<Float>,
+        intensity: Float,
+        opacity: Float
+    ) -> SIMD4<Float> {
+        SIMD4<Float>(
+            color.x * intensity,
+            color.y * intensity,
+            color.z * intensity,
+            opacity
+        )
     }
 
     private static func mix(_ start: SIMD4<Float>, _ end: SIMD4<Float>, t: Float) -> SIMD4<Float> {
         start + ((end - start) * t)
+    }
+
+    private static func mix(_ start: Float, _ end: Float, t: Float) -> Float {
+        start + ((end - start) * t)
+    }
+
+    private static func smoothstep(edge0: Float, edge1: Float, x: Float) -> Float {
+        let t = clamp((x - edge0) / max(edge1 - edge0, 0.0001))
+        return t * t * (3 - (2 * t))
     }
 
     private static func clamp(_ value: Float) -> Float {
