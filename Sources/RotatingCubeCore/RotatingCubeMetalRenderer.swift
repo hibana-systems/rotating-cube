@@ -285,12 +285,10 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
             fragmentBytesLength: MemoryLayout<GPUBrightPassUniforms>.stride
         )
 
-        var horizontalBlur = GPUBlurUniforms(
+        var horizontalBlur = makeBlurUniforms(
+            texture: bloomTextureA,
             direction: SIMD2<Float>(1, 0),
-            sourceTexelSize: SIMD2<Float>(
-                1 / Float(max(bloomTextureA.width, 1)),
-                1 / Float(max(bloomTextureA.height, 1))
-            )
+            radius: sceneSpec.crt.bloomRadius
         )
         encodeFullscreenPass(
             commandBuffer: commandBuffer,
@@ -302,12 +300,10 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
             fragmentBytesLength: MemoryLayout<GPUBlurUniforms>.stride
         )
 
-        var verticalBlur = GPUBlurUniforms(
+        var verticalBlur = makeBlurUniforms(
+            texture: bloomTextureB,
             direction: SIMD2<Float>(0, 1),
-            sourceTexelSize: SIMD2<Float>(
-                1 / Float(max(bloomTextureB.width, 1)),
-                1 / Float(max(bloomTextureB.height, 1))
-            )
+            radius: sceneSpec.crt.bloomRadius
         )
         encodeFullscreenPass(
             commandBuffer: commandBuffer,
@@ -464,6 +460,23 @@ public final class RotatingCubeMetalRenderer: NSObject, MTKViewDelegate {
             camera: camera,
             aspectRatio: aspectRatio
         )
+    }
+
+    private func makeBlurUniforms(
+        texture: MTLTexture,
+        direction: SIMD2<Float>,
+        radius: Float
+    ) -> GPUBlurUniforms {
+        let texelSize = SIMD2<Float>(
+            1 / Float(max(texture.width, 1)),
+            1 / Float(max(texture.height, 1))
+        )
+        let sampleOffsets = BloomSampling.blurOffsets(
+            direction: direction,
+            texelSize: texelSize,
+            radius: radius
+        )
+        return GPUBlurUniforms(sampleOffsets: sampleOffsets)
     }
 
     private static func makeLinePipeline(

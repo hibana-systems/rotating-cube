@@ -1,5 +1,26 @@
 import simd
 
+enum BloomSampling {
+    static let blurTapCount = 4
+
+    static func blurOffsets(
+        direction: SIMD2<Float>,
+        texelSize: SIMD2<Float>,
+        radius: Float
+    ) -> [SIMD2<Float>] {
+        let directionLengthSquared = simd_length_squared(direction)
+        let normalizedDirection = directionLengthSquared > 0.0001
+            ? direction / sqrt(directionLengthSquared)
+            : SIMD2<Float>(repeating: 0)
+        let clampedRadius = max(radius, 0)
+        let basis = normalizedDirection * texelSize * clampedRadius
+
+        return (1...blurTapCount).map { index in
+            basis * Float(index)
+        }
+    }
+}
+
 public struct GPUSceneLineInstance {
     public var startPosition: SIMD3<Float>
     public var endPosition: SIMD3<Float>
@@ -71,12 +92,17 @@ public struct GPUBrightPassUniforms {
 }
 
 public struct GPUBlurUniforms {
-    public var direction: SIMD2<Float>
-    public var sourceTexelSize: SIMD2<Float>
+    public var sampleOffset1: SIMD2<Float>
+    public var sampleOffset2: SIMD2<Float>
+    public var sampleOffset3: SIMD2<Float>
+    public var sampleOffset4: SIMD2<Float>
 
-    public init(direction: SIMD2<Float>, sourceTexelSize: SIMD2<Float>) {
-        self.direction = direction
-        self.sourceTexelSize = sourceTexelSize
+    public init(sampleOffsets: [SIMD2<Float>]) {
+        precondition(sampleOffsets.count == BloomSampling.blurTapCount, "Expected four blur offsets.")
+        self.sampleOffset1 = sampleOffsets[0]
+        self.sampleOffset2 = sampleOffsets[1]
+        self.sampleOffset3 = sampleOffsets[2]
+        self.sampleOffset4 = sampleOffsets[3]
     }
 }
 

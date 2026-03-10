@@ -34,6 +34,16 @@ These are the current reset values. Treat them as the visual baseline unless the
 - Cube
   - `size = 3.2`
   - `center = (0, 1.98, 0)`
+  - `lineStyle.coreWidthPixels = 4.6`
+  - `lineStyle.glowWidthPixels = 18.0`
+  - `lineStyle.coreOpacity = 1.0`
+  - `lineStyle.glowOpacity = 0.40`
+  - `lineStyle.coreIntensity = 1.40`
+  - `lineStyle.glowIntensity = 2.50`
+  - `depthHierarchy.nearCoreScale = 1.15`
+  - `depthHierarchy.farCoreScale = 0.78`
+  - `depthHierarchy.nearGlowScale = 1.40`
+  - `depthHierarchy.farGlowScale = 0.60`
   - `xTiltDegrees = 30`
   - `initialYawDegrees = 45`
   - `xRevolutionsPerLoop = 1`
@@ -42,6 +52,16 @@ These are the current reset values. Treat them as the visual baseline unless the
   - `extent = 26`
   - `spacing = 0.72`
   - `y = -1.4`
+  - `lineStyle.coreWidthPixels = 3.4`
+  - `lineStyle.glowWidthPixels = 5.2`
+  - `lineStyle.coreOpacity = 0.58`
+  - `lineStyle.glowOpacity = 0.06`
+  - `lineStyle.coreIntensity = 0.80`
+  - `lineStyle.glowIntensity = 1.00`
+  - `distanceFalloff.startDepth = 14.0`
+  - `distanceFalloff.endDepth = 34.0`
+  - `distanceFalloff.minimumCoreScale = 0.35`
+  - `distanceFalloff.minimumGlowScale = 0.20`
 - Camera
   - `position = (0, 4.14, 13.0)`
   - `target = (0, 1.3, 0)`
@@ -59,13 +79,13 @@ These are the current reset values. Treat them as the visual baseline unless the
   - `h264`
   - `30_000_000` average bitrate
 - CRT / post
-  - CRT effects are lightly enabled for baseline distressing.
-  - `bloomThreshold = 0.68`
-  - `bloomIntensity = 0.10`
-  - `bloomRadius = 1.5`
-  - `scanlineIntensity = 0.12`
+  - CRT effects are tuned for a punchier menace pass without changing the overall composition.
+  - `bloomThreshold = 0.56`
+  - `bloomIntensity = 0.26`
+  - `bloomRadius = 2.4`
+  - `scanlineIntensity = 0.28`
   - `scanlineDensity = 1.0`
-  - `phosphorMaskIntensity = 0.0`
+  - `phosphorMaskIntensity = 0.04`
   - `vignetteIntensity = 0.08`
   - `barrelDistortion = 0.035`
   - `cornerPinch = 0.0`
